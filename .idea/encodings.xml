@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/.bowerrc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bower.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gulpfile.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ionic.project" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/account/account.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/account/tab-account.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat.service.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/tab-chats.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/dash/dash.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/dash/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/tabs/tabs.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/index.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/test/test.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/account.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/account.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/account.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/tab-account.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/tab-account.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/account/tab-account.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.service.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.service.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/chat.service.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/tab-chats.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/tab-chats.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/chat/tab-chats.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/dash.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/dash.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/dash.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/dash/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/tabs/tabs.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/tabs/tabs.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/app/tabs/tabs.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/account/account.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/account/tab-account.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/chat/chat-detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/chat/chat.service.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/chat/tab-chats.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/dash/dash.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/dash/tab-dash.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www/js/tabs/tabs.html" charset="UTF-8" />
+  </component>
+</project>

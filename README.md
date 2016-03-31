@@ -23,15 +23,18 @@ Clone the project
 git clone git@github.com:ganlub/drexler.git
 ```
 
-Install node and bower dependencies
+Install node, ionic and bower dependencies
 ```
-cd drexler; npm install ; bower install
+cd drexler; npm install ; ionic state reset ; bower install
 ```
 
 Build distribution Package
 ```
 gulp build
 ```
+
+Launch the developer app
+gulp serve
 
 Build Android Package
 ```
@@ -51,6 +54,27 @@ WIP
 
 Luis Toubes - @toubes
 
+## Folder structure
+/src
+--/client
+
+----/app
+------/dashboard                -> as an example
+-------- shell.html
+-------- shell.controller.js
+-------- shell.directive.js
+-------- shell.directive.html 
+               
+----/content
+------/fonts
+------/images
+------/locales
+------/scss
+------/sounds
+
+----/test
+
+/www
 
 ## License
 
