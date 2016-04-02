@@ -3,6 +3,7 @@
 
 node_modules/
 vendors/
+resources/
 platforms/
 plugins/
 www/

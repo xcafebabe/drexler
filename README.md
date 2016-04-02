@@ -41,7 +41,9 @@ gulp serve-ionic
 
 ### Build Android Package
 ```
-ionic build android
+ionic platform add android
+ionic build android            -> creates a android-debug apk
+ionic build --release android  -> creates a android-release-unsigned apk
 ```
 
 ## Usage
