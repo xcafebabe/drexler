@@ -28,15 +28,10 @@ git clone git@github.com:ganlub/drexler.git
 cd drexler; npm install ; ionic state reset ; bower install
 ```
 
-### BUILD DISTRIBUTION PACKAGE
-```
-gulp build
-```
-
 ### LAUNCH THE DEVELOPER APP
 gulp serve
 
-### LAUNCH AND BUILD APP FOR PRODUCTION
+### BUILD DISTRIBUTION PACKAGE AND LAUNCH
 
 gulp serve-ionic
 
