@@ -18,25 +18,25 @@ If you don’t have the Ionic command line tool installed, make sure you have th
 npm install -g ionic cordova bower gulp
 ```
 
-### Clone the project
+### CLONE THE PROJECT
 ```
 git clone git@github.com:ganlub/drexler.git
 ```
 
-### Install node, ionic and bower dependencies
+### INSTALL NODE, IONIC AND BOWER DEPENDENCIES
 ```
 cd drexler; npm install ; ionic state reset ; bower install
 ```
 
-### Build distribution Package
+### BUILD DISTRIBUTION PACKAGE
 ```
 gulp build
 ```
 
-### Launch the developer app
+### LAUNCH THE DEVELOPER APP
 gulp serve
 
-### Launch and build app for production
+### LAUNCH AND BUILD APP FOR PRODUCTION
 
 gulp serve-ionic
 
