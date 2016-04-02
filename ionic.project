@@ -1,7 +1,4 @@
 {
   "name": "drexler",
-  "app_id": "",
-  "gulpStartupTasks": [
-      "ionic-build"
-    ]
+  "app_id": ""
 }

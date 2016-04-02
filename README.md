@@ -18,25 +18,33 @@ If you don’t have the Ionic command line tool installed, make sure you have th
 npm install -g ionic cordova bower gulp
 ```
 
-Clone the project
+### Clone the project
 ```
 git clone git@github.com:ganlub/drexler.git
 ```
 
-Install node, ionic and bower dependencies
+### Install node, ionic and bower dependencies
 ```
 cd drexler; npm install ; ionic state reset ; bower install
 ```
 
-Build distribution Package
+### Build distribution Package
 ```
 gulp build
 ```
 
-Launch the developer app
+### Launch the developer app
 gulp serve
 
-Build Android Package
+### Launch and build app for production
+
+gulp serve-ionic
+
+  NOTE:
+  ionic serve will launch the server, but will not build the required files
+  you can use ionic serve after you builded the files with gulp serve-ionic
+
+### Build Android Package
 ```
 ionic build android
 ```
@@ -59,11 +67,13 @@ Luis Toubes - @toubes
 --/client
 
 ----/app
+------/app.js 
+------/template.js              -> needed to compile views
 ------/dashboard                -> as an example
 -------- shell.html
 -------- shell.controller.js
 -------- shell.directive.js
--------- shell.directive.html 
+-------- shell.directive.html
                
 ----/content
 ------/fonts
@@ -75,6 +85,9 @@ Luis Toubes - @toubes
 ----/test
 
 /www
+--/content
+--/css
+--/js
 
 ## License
 

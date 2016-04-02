@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var app = angular.module('starter', ['ionic']);
+var app = angular.module('starter', ['ionic', 'templates']);
 
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -36,7 +36,7 @@ app.run(function($ionicPlatform) {
       .state('tab', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'app/tabs/tabs.html'
+        templateUrl: 'tabs/tabs.html'
       })
 
       // Each tab has its own nav history stack:
@@ -45,7 +45,7 @@ app.run(function($ionicPlatform) {
         url: '/dash',
         views: {
           'tab-dash': {
-            templateUrl: 'app/dash/tab-dash.html',
+            templateUrl: 'dash/tab-dash.html',
             controller: 'DashCtrl'
           }
         }
@@ -55,7 +55,7 @@ app.run(function($ionicPlatform) {
         url: '/chats',
         views: {
           'tab-chats': {
-            templateUrl: 'app/chat/tab-chats.html',
+            templateUrl: 'chat/tab-chats.html',
             controller: 'ChatsCtrl'
           }
         }
@@ -64,7 +64,7 @@ app.run(function($ionicPlatform) {
         url: '/chats/:chatId',
         views: {
           'tab-chats': {
-            templateUrl: 'app/chat/chat-detail.html',
+            templateUrl: 'chat/chat-detail.html',
             controller: 'ChatDetailCtrl'
           }
         }
@@ -74,7 +74,7 @@ app.run(function($ionicPlatform) {
         url: '/account',
         views: {
           'tab-account': {
-            templateUrl: 'app/account/tab-account.html',
+            templateUrl: 'account/tab-account.html',
             controller: 'AccountCtrl'
           }
         }
