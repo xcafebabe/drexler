@@ -4,7 +4,7 @@
     "dest": "src/client/"
   },
   "index": {
-    "src": "src/client/index.html",
+    "src": "./src/client/index.html",
     "dest": ""
   },
   "views": {
@@ -26,6 +26,10 @@
   "images": {
     "src": ["./src/client/content/images/**/*.+(png|jpg|gif|svg)"],
     "dest": "www/content/images/"
+  },
+  "test": {
+    "src": ["/src/client/test/karma.conf.js"],
+    "dest": ""
   },
   "dist": "www"
 }

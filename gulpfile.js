@@ -1,6 +1,7 @@
 var fs = require('fs'),
     config = JSON.parse(fs.readFileSync('./gulp.config-sample.json')),
     PATH = config.path,
+    sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
     mainBowerFiles = require('main-bower-files'),
@@ -14,19 +15,20 @@ var fs = require('fs'),
     jshint = require('gulp-jshint'),
     imagemin = require('gulp-imagemin'),
     ngAnnotate = require('gulp-ng-annotate'),
+    karma = require('karma').Server,
     browserSync = require('browser-sync').create();
 
 // injects links to index html
+
 gulp.task('inject', function () {
   var script = config.scripts.src,
       local = script.concat(config.css.src),
       vendor =  mainBowerFiles(),
       paths = vendor.concat(local);
 
-  return gulp.src(PATH.src + config.index.src)
+  return gulp.src(config.index.src)
     .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
-    .pipe(gulp.dest(PATH.dest))
-    .pipe(gulp.dest(PATH.dest));
+    .pipe(gulp.dest(PATH.src))
 });
 
 // converts sass to css
@@ -49,6 +51,16 @@ gulp.task('lint', function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
+});
+
+// Karma test
+gulp.task('karma-test', function(done) {
+  karma.start({
+    configFile: __dirname + config.test.src,
+    singleRun: true
+  }, function() {
+    done();
+  });
 });
 
 // converts angular templates to js cache
@@ -96,8 +108,8 @@ gulp.task('browserSync', function() {
 });
 
 // serve all the required files for src
-gulp.task('serve', ['browserSync', 'sass', 'template', 'inject'], function(){
-
+gulp.task('serve', function(){
+  sequence('browserSync', 'template', 'sass', 'inject');
   gulp.watch(config.views.src, browserSync.reload);
   gulp.watch(config.scripts.src, browserSync.reload);
   gulp.watch(config.css.src, browserSync.reload);
