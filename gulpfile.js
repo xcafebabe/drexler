@@ -96,7 +96,7 @@ gulp.task('browserSync', function() {
 });
 
 // serve all the required files for src
-gulp.task('serve', ['browserSync', 'sass', 'inject'], function(){
+gulp.task('serve', ['browserSync', 'sass', 'template', 'inject'], function(){
 
   gulp.watch(config.views.src, browserSync.reload);
   gulp.watch(config.scripts.src, browserSync.reload);
