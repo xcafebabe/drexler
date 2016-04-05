@@ -1,1 +1,1 @@
-app.controller('DashCtrl', function($scope) {})
+app.controller('DashCtrl', function($scope) {});
