@@ -1,4 +1,7 @@
-var gulp = require('gulp'),
+var fs = require('fs'),
+    config = JSON.parse(fs.readFileSync('./gulp.config-sample.json')),
+    PATH = config.path,
+    gulp = require('gulp'),
     inject = require('gulp-inject'),
     mainBowerFiles = require('main-bower-files'),
     sass = require('gulp-sass'),
@@ -8,56 +11,83 @@ var gulp = require('gulp'),
     cssnano = require('gulp-cssnano'),
     templateCache = require('gulp-angular-templatecache'),
     exec = require('child_process').exec,
+    jshint = require('gulp-jshint'),
+    imagemin = require('gulp-imagemin'),
+    ngAnnotate = require('gulp-ng-annotate'),
     browserSync = require('browser-sync').create();
 
+// injects links to index html
 gulp.task('inject', function () {
-  var local = ['./src/client/app/app.js', './src/client/css/**/*.css', './src/client/app/**/*.js'],
+  var script = config.scripts.src,
+      local = script.concat(config.css.src),
       vendor =  mainBowerFiles(),
       paths = vendor.concat(local);
 
-  return gulp.src('./src/client/index.html')
-    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: 'src/client'}))
-    .pipe(gulp.dest('./src/client/'))
-    .pipe(gulp.dest('./src/client/'));
+  return gulp.src(PATH.src + config.index.src)
+    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
+    .pipe(gulp.dest(PATH.dest))
+    .pipe(gulp.dest(PATH.dest));
 });
 
+// converts sass to css
 gulp.task('sass', function(){
-  return gulp.src('./src/client/content/scss/**/*.scss')
+  return gulp.src(config.scss.src)
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-    .pipe(gulp.dest('./src/client/css'))
+    .pipe(gulp.dest(config.scss.dest))
 });
 
+// minify images
+gulp.task('images', function(){
+  return gulp.src(config.images.src)
+    .pipe(imagemin())
+    .pipe(gulp.dest(config.images.dest))
+});
+
+// gulp jshint
+gulp.task('lint', function() {
+  return gulp.src(config.scripts.src)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
+});
+
+// converts angular templates to js cache
 gulp.task('template', function () {
-  return gulp.src('./src/client/app/**/*html')
+  return gulp.src(config.views.src)
     .pipe(templateCache({
       module: "templates",
       standalone: "true"
     }))
-    .pipe(gulp.dest('./src/client/app/'));
+    .pipe(gulp.dest(config.views.dest));
 });
 
+// runs ionic serve
 gulp.task('start-ionic-server', function(){
   exec('ionic serve', function (err, stdout, stderr) {});
 });
 
+// build files from src to www
 gulp.task('ionic-build', function(){
-  var local = ['./src/client/app/templates.js', './src/client/app/app.js', './src/client/css/**/*.css', './src/client/app/**/*.js'],
-      vendor =  mainBowerFiles(),
-      paths = vendor.concat(local);
+  var script = config.scripts.src,
+    local = script.concat(config.css.src),
+    vendor =  mainBowerFiles(),
+    paths = vendor.concat(local);
 
-  return gulp.src('src/client/index.html')
-    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: 'src/client'}))
-    .pipe(gulp.dest('./src/client/'))
-    .pipe(useref({ searchPath: ['.', './src/client'] }))
-    .pipe(gulpIf('*.js', uglify({mangle: false})))
+  return gulp.src(config.index.src)
+    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
+    .pipe(gulp.dest(PATH.src))
+    .pipe(useref({ searchPath: ['.', PATH.src] }))
+    .pipe(gulpIf('*.js', ngAnnotate()))
+    .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', cssnano()))
-    .pipe(gulp.dest('www/'));
+    .pipe(gulp.dest(config.dist));
 });
 
+// starts a server for src
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: ['src/client'],
+      baseDir: [PATH.dest],
       routes: {
         "/vendors": "vendors"
       }
@@ -65,13 +95,15 @@ gulp.task('browserSync', function() {
   })
 });
 
+// serve all the required files for src
 gulp.task('serve', ['browserSync', 'sass', 'inject'], function(){
 
-  gulp.watch('src/client/**/*.html', browserSync.reload);
-  gulp.watch('src/client/app/**/*.js', browserSync.reload);
-  gulp.watch('src/client/css/**/*.css', browserSync.reload);
+  gulp.watch(config.views.src, browserSync.reload);
+  gulp.watch(config.scripts.src, browserSync.reload);
+  gulp.watch(config.css.src, browserSync.reload);
 
 });
 
-gulp.task('serve-ionic', ['sass', 'ionic-build', 'start-ionic-server']);
+// build and serve files in www
+gulp.task('ionic-serve', ['lint', 'images', 'sass', 'ionic-build', 'start-ionic-server']);
 
