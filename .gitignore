@@ -6,4 +6,6 @@ vendors/
 resources/
 platforms/
 plugins/
+.tmp/
 www/
+

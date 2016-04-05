@@ -2,7 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gulp.config-sample.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulpfile.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/app.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat-detail.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/chat/chat.controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/dash/dash.controller.js" charset="UTF-8" />
   </component>
 </project>
