@@ -2,13 +2,15 @@
 
 ## Synopsis
 
-Drexler is designed to make life easy by providing a basic framework  to kickstart Ionic projects. It contains best-practice directory structure to ensure code reusability and maximum scalability (based on John Papa [Lift](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#lift) Principle), it uses the best componens from developer community to accomplish most standar requirements as Localization, Preferences, Database, Theme handling and also it contains a sophisticated Gulp-based build system to ensure maximum productivity.
+Drexler is designed to make life easy by providing a basic framework  to kick start Ionic projects. It contains best-practice directory structure to ensure code re-usability and maximum scalability (based on John Papa [Lift](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#lift) Principle), it uses the best components from developer community to accomplish most standard requirements as Localization, Preferences, Database, Theme handling and also it contains a sophisticated Gulp-based build system to ensure maximum productivity.
 
 All you have to do is clone it, install it and start coding!! :)
 
-## Setup Drexler
+Have Fun!
 
-This guide is considering that you are going to deploy for Android Devices
+## Installation
+
+This guide is considering that you are going to deploy for **Android Devices**
 
 ### Android SDK
 
@@ -16,11 +18,11 @@ This guide is considering that you are going to deploy for Android Devices
 * Unpack the .tgz you have download in your preferred folder
 * Navigate to `tools/` directory and then execute `android sdk`.
 * Install Android Packages according to http://developer.android.com/sdk/installing/adding-packages.html
-* Add in your profile file ANDROID_HOME
+* Add to your profile ANDROID_HOME variable.
 
 ### Node.js
 
-Make sure you have the latest Node.js (^5.7.1) and npm (^3.8.0)
+Make sure you have the la test Node.js (^5.7.1) and npm (^3.8.0)
 
 Best approach to install from Source node and npm
 
@@ -33,31 +35,46 @@ cd ~/node-latest-install
 curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
 ./configure --prefix=~/local
 make install # ok, fine, this step probably takes more than 30 seconds...
-curl https://www.npmjs.org/install.sh | sh
+curl https://www.npmjs.com/install.sh | sh
 ```
 
-### Drexler global dependencies
+### Global dependencies
 
 ```
 npm install -g ionic cordova bower gulp
 ```
 
-### Drexler source code
+### Source code
 ```
 git clone git clone git@bitbucket.org:bytesauce/drexler.git
 ```
 
-### Drexler configuration
+### Setup environment
+
 ```
-cd drexler
-ionic state reset
-npm install
-bower install
+cd drexler && ionic state reset && npm install && bower install
 ```
+
+## Usage
+
+Copy file `gulp.config-sample.json` to `gulp.config.json` .
+
+In this file you can save/read sensitive information about Drexler configuration.
+
+After this copy you can run  Drexler in development mode
+
+```
+gulp serve
+```
+
+
 
 
 FOR REVIEW
 -----
+
+
+
 
 
 ### LAUNCH THE DEVELOPER APP
@@ -100,7 +117,6 @@ WIP
 
 ## Contributors
 
-Luis Toubes - @toubes
 
 ## Folder structure
 /src
