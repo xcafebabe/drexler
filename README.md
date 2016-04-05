@@ -50,8 +50,8 @@ git clone git clone git@bitbucket.org:bytesauce/drexler.git
 ### Drexler configuration
 ```
 cd drexler
-npm install
 ionic state reset
+npm install
 bower install
 ```
 
