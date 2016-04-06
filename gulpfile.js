@@ -1,6 +1,4 @@
 var fs = require('fs'),
-    config = JSON.parse(fs.readFileSync('./gulp.config-sample.json')),
-    PATH = config.path,
     sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
@@ -18,6 +16,15 @@ var fs = require('fs'),
     karma = require('karma').Server,
     browserSync = require('browser-sync').create();
 
+
+// Getting settings.json configurations
+try {
+  config = JSON.parse(fs.readFileSync('./gulp.config.json')),
+  PATH = config.path
+}catch (e){
+  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN RENAME gulp.config-sample.json TO gulp.config.js")
+  process.exit();
+}
 // injects links to index html
 
 gulp.task('inject', function () {
@@ -28,7 +35,7 @@ gulp.task('inject', function () {
 
   return gulp.src(config.index.src)
     .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
-    .pipe(gulp.dest(PATH.src))
+    .pipe(gulp.dest(PATH.temp))
 });
 
 // converts sass to css
@@ -55,9 +62,14 @@ gulp.task('lint', function() {
 
 // Karma test
 gulp.task('karma-test', function(done) {
+  var test = config.test.scripts,
+    local = config.scripts.src.concat(test),
+    vendor =  mainBowerFiles(),
+    paths = vendor.concat(local);
   karma.start({
     configFile: __dirname + config.test.src,
-    singleRun: true
+    files: paths,
+    exclude: config.test.exclude
   }, function() {
     done();
   });
@@ -80,6 +92,8 @@ gulp.task('start-ionic-server', function(){
 
 // build files from src to www
 gulp.task('ionic-build', function(){
+
+  sequence('lint', 'images', 'sass');
   var script = config.scripts.src,
     local = script.concat(config.css.src),
     vendor =  mainBowerFiles(),
@@ -87,7 +101,7 @@ gulp.task('ionic-build', function(){
 
   return gulp.src(config.index.src)
     .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
-    .pipe(gulp.dest(PATH.src))
+    .pipe(gulp.dest(config.dist))
     .pipe(useref({ searchPath: ['.', PATH.src] }))
     .pipe(gulpIf('*.js', ngAnnotate()))
     .pipe(gulpIf('*.js', uglify()))
@@ -99,9 +113,11 @@ gulp.task('ionic-build', function(){
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: [PATH.dest],
+      baseDir: [PATH.temp],
       routes: {
-        "/vendors": "vendors"
+        "/vendors": "vendors",
+        "/app": "src/client/app",
+        "/content": "src/client/content"
       }
     },
   })
@@ -117,5 +133,7 @@ gulp.task('serve', function(){
 });
 
 // build and serve files in www
-gulp.task('ionic-serve', ['lint', 'images', 'sass', 'ionic-build', 'start-ionic-server']);
+gulp.task('ionic-serve', function(){
+  sequence('ionic-build', 'start-ionic-server');
+});
 

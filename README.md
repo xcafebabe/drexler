@@ -63,9 +63,13 @@ FOR REVIEW
 ### LAUNCH THE DEVELOPER APP
 gulp serve
 
+### BUILD DISTRIBUTION
+
+ionic-build
+
 ### BUILD DISTRIBUTION PACKAGE AND LAUNCH
 
-gulp serve-ionic
+gulp ionic-serve
 
   NOTE:
   ionic serve will launch the server, but will not build the required files
