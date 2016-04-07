@@ -15,16 +15,17 @@ var fs = require('fs'),
     ngAnnotate = require('gulp-ng-annotate'),
     replace = require('gulp-replace-task'),
     karma = require('karma').Server,
-    browserSync = require('browser-sync').create();
+    browserSync = require('browser-sync').create(),
+    PATH;
 
 // Getting settings.json configurations
 
 try {
   require('./gulp.config.js');
   //config = JSON.parse(fs.readFileSync('./gulp.config.json')),
-  PATH = config.path
+  PATH = config.path;
 }catch (e){
-  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN RENAME gulp.config-sample.json TO gulp.config.js");
+  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN COPY gulp.config-sample.json TO gulp.config.js");
   console.log("\r\n ### IF YOU PROVIDED A gulp.config.js MAKE SURE THERE IS NO SYNTAX ERROR IN THAT FILE");
   process.exit();
 }
@@ -158,12 +159,12 @@ gulp.task('browserSync', function() {
     server: {
       baseDir: [PATH.temp],
       routes: {
-        "/vendors": "vendors",
-        "/app": "src/client/app",
-        "/content": "src/client/content"
+        '/vendors': 'vendors',
+        '/app': 'src/client/app',
+        '/content': 'src/client/content'
       }
     },
-  })
+  });
 });
 
 // serve all the required files for src
@@ -179,4 +180,3 @@ gulp.task('serve', function(){
 gulp.task('ionic-serve', function(){
   sequence('ionic-build', 'start-ionic-server');
 });
-

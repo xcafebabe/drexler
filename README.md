@@ -100,12 +100,6 @@ ionic build --release android  -> creates a android-release-unsigned apk
 ```
 
 
-### installing karma and setting file for testing
-npm install -g karma-cli
-
-cd src/client/test/     -> cd to the location defined in gulp.config for testing
-karma init my.conf.js
-
 ### start testing
 
 gulp karma-test
