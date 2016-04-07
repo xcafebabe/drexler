@@ -34,17 +34,18 @@ mkdir ~/node-latest-install
 cd ~/node-latest-install
 curl http://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
 ./configure --prefix=~/local
-make install # ok, fine, this step probably takes more than 30 seconds...
+make install # this step probably takes more than 30 seconds ...
 curl https://www.npmjs.com/install.sh | sh
 ```
 
 ### Global dependencies
 
 ```
-npm install -g ionic cordova bower gulp
+npm install -g ionic cordova bower gulp karma-cli
 ```
 
 ### Source code
+
 ```
 git clone git clone git@bitbucket.org:bytesauce/drexler.git
 ```
@@ -67,18 +68,17 @@ After this copy you can run  Drexler in development mode
 gulp serve
 ```
 
+## Running Tests
+
+In folder `src/client/test` you can code your tests.
+
+To execute all unit tests, use:
+
+```
+gulp karma-test
+```
 
 
-
-FOR REVIEW
------
-
-
-
-
-
-### LAUNCH THE DEVELOPER APP
-gulp serve
 
 ### BUILD DISTRIBUTION
 
@@ -110,44 +110,59 @@ karma init my.conf.js
 
 gulp karma-test
 
-## Usage
-
-WIP
 
 
-## Tests
-
-WIP
-
-## Contributors
 
 
 ## Folder structure
-/src
---/client
 
-----/app
-------/app.js
-------/template.js              -> needed to compile views
-------/dashboard                -> as an example
--------- shell.html
--------- shell.controller.js
--------- shell.directive.js
--------- shell.directive.html
+Following John Papa style [Y141](https://github.com/johnpapa/angular-styleguide/blob/master/README.md#style-y141)
 
-----/content
-------/fonts
-------/images
-------/locales
-------/scss
-------/sounds
+Create folders named for the feature they represent. When a folder grows to contain more than 7 files, start to consider creating a folder for them. Your threshold may be different, so adjust as needed.
 
-----/test
+Note: Do not structure your app using folders-by-type. This requires moving to multiple folders when working on a feature and gets unwieldy quickly as the app grows to 5, 10 or 25+ views and controllers (and other features), which makes it more difficult than folder-by-feature to locate files.
 
-/www
---/content
---/css
---/js
+```
+src/
+  client/
+    app/
+      app.js         -> Standard angular app module boot
+      template.js    -> Needed to compile views
+      dashboard/     -> Dashboard Feature
+        shell.html
+        shell.controller.js
+        shell.directive.js
+        shell.directive.html
+    content/         -> Assets like images,fonts, locales,css, sounds
+      fonts/
+      images/
+      locales/
+      scss/
+      sounds/
+    test/            -> Location of my tests
+www/                 -> Distribution folder used as well by ionic tasks
+  content/
+  images/
+  css/
+  js/
+hooks/               -> Node.js scripts provided by ionic.
+platforms/           -> Device code and binaries
+plugins/             -> Plugins used in cordova
+config.xml           -> Cordova configuration file
+```
+Keep in mind also Styles [142](https://github.com/johnpapa/angular-styleguide/blob/master/README.md#style-y142), [143](https://github.com/johnpapa/angular-styleguide/blob/master/README.md#style-y143), [144](https://github.com/johnpapa/angular-styleguide/blob/master/README.md#style-y144)
+
+Together is the [LIFT](https://github.com/johnpapa/angular-styleguide/blob/master/README.md#style-y140) principle
+
+**L** ocating our code is easy
+
+**I** dentify code at a glance
+
+**F** lat structure as long as we can
+
+**T** ry to stay DRY (Don’t Repeat Yourself) or T-DRY
+
+
 
 ### SETTINGS STAMPS
 "stamps": [
@@ -155,7 +170,7 @@ WIP
       "src": ["file.txt", "file1.txt"],    // files to edit
       "dest": ".tmp/",                     // folder to store or empty string if wnat to replace current file
       "patterns": {
-        "match": /foo/g,                   // word to find 
+        "match": /foo/g,                   // word to find
         "replacement": "bar"               // replace with
       }
     },
