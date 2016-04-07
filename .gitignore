@@ -8,4 +8,5 @@ platforms/
 plugins/
 .tmp/
 www/
+gulp.config.js
 
