@@ -1,0 +1,11 @@
+{
+  "ecmaVersion": 5,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [
+    "src/client/app/**/*.js",
+    "src/client/test/**/*.js"
+  ]
+}
