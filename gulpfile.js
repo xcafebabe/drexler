@@ -13,16 +13,19 @@ var fs = require('fs'),
     jshint = require('gulp-jshint'),
     imagemin = require('gulp-imagemin'),
     ngAnnotate = require('gulp-ng-annotate'),
+    replace = require('gulp-replace-task'),
     karma = require('karma').Server,
     browserSync = require('browser-sync').create();
 
-
 // Getting settings.json configurations
+
 try {
-  config = JSON.parse(fs.readFileSync('./gulp.config.json')),
+  require('./gulp.config.js');
+  //config = JSON.parse(fs.readFileSync('./gulp.config.json')),
   PATH = config.path
 }catch (e){
-  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN RENAME gulp.config-sample.json TO gulp.config.js")
+  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN RENAME gulp.config-sample.json TO gulp.config.js");
+  console.log("\r\n ### IF YOU PROVIDED A gulp.config.js MAKE SURE THERE IS NO SYNTAX ERROR IN THAT FILE");
   process.exit();
 }
 // injects links to index html
@@ -88,6 +91,46 @@ gulp.task('template', function () {
 // runs ionic serve
 gulp.task('start-ionic-server', function(){
   exec('ionic serve', function (err, stdout, stderr) {});
+});
+
+// runs ionic serve
+gulp.task('replace', function(){
+
+  var stamps = config.stamps,
+      length = stamps.length;
+  for (var i = 0; i < length; i++){
+    var item = stamps[i],
+        src = item.src,
+        patterns = item.patterns,
+        destLength = src.length;
+
+    if( Object.prototype.toString.call( src ) === '[object Array]' ) {
+      var paternType = patterns.json ? { json: patterns.json} : { match: patterns.match, replacement: patterns.replacement };
+      for (var e = 0; e < destLength; e++){
+        gulp.src(src[e])
+          .pipe(replace({
+            patterns: [
+              paternType
+            ]
+          }))
+          .pipe(gulp.dest(item.dest));
+      }
+    }
+    else {
+      gulp.src(src)
+        .pipe(replace({
+          patterns: [
+            {
+              match: patterns.match,
+              replacement: patterns.replacement
+            }
+          ]
+        }))
+        .pipe(gulp.dest(item.dest));
+    }
+
+
+  }
 });
 
 // build files from src to www

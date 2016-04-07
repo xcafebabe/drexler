@@ -82,7 +82,7 @@ gulp serve
 
 ### BUILD DISTRIBUTION
 
-ionic-build
+gulp ionic-build
 
 ### BUILD DISTRIBUTION PACKAGE AND LAUNCH
 
@@ -148,6 +148,35 @@ WIP
 --/content
 --/css
 --/js
+
+### SETTINGS STAMPS
+"stamps": [
+    {
+      "src": ["file.txt", "file1.txt"],    // files to edit
+      "dest": ".tmp/",                     // folder to store or empty string if wnat to replace current file
+      "patterns": {
+        "match": /foo/g,                   // word to find 
+        "replacement": "bar"               // replace with
+      }
+    },
+    {
+      "src": "file2.txt",                 // suppor one string if there is only one file
+      "dest": "",                         // empty string if want to replace current file
+      "patterns": {
+        "match": /der/g,
+        "replacement": "ferfer"
+      }
+    },
+    {
+      "src": ["file3.json"],
+      "dest": ".tmp/",
+      "patterns": {
+        "json": {
+        "123": "value"                    // finds @123 and replaces it to "value". ie: {"@@123": "any"} -> {"value": "any"} or {"val": "@@123"} -> {"val": "value"}
+        }
+      }         
+    }     
+  ]
 
 ## License
 
