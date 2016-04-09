@@ -26,7 +26,8 @@
     "karma-jasmine": "^0.3.8",
     "main-bower-files": "^2.11.1",
     "run-sequence": "^1.1.5",
-    "shelljs": "^0.3.0"
+    "shelljs": "^0.3.0",
+    "yargs": "^4.4.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
