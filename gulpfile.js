@@ -18,7 +18,24 @@ var fs = require('fs'),
     browserSync = require('browser-sync').create(),
     PATH;
 
-// Getting settings.json configurations
+
+
+/**
+ * yargs variables can be passed in to alter the behavior, when present.
+ * Example: gulp serve-dev
+ *
+ * --verbose  : Various tasks will produce more output to the console.
+ * --nosync   : Don't launch the browser with browser-sync when serving code.
+ * --debug    : Launch debugger with node-inspector.
+ * --debug-brk: Launch debugger and break on 1st line with node-inspector.
+ * --startServers: Will start servers for midway tests on the test task.
+ */
+
+/**
+ * List the available gulp tasks
+ */
+gulp.task('help', require('gulp-task-listing'));
+gulp.task('default', ['help']);
 
 try {
   require('./gulp.config.js');
