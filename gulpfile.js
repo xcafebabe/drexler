@@ -16,6 +16,7 @@ var fs = require('fs'),
     replace = require('gulp-replace-task'),
     karma = require('karma').Server,
     browserSync = require('browser-sync').create(),
+    gutil = require('gulp-util'),
     PATH;
 
 
@@ -31,23 +32,26 @@ var fs = require('fs'),
  * --startServers: Will start servers for midway tests on the test task.
  */
 
-/**
- * List the available gulp tasks
- */
-gulp.task('help', require('gulp-task-listing'));
-gulp.task('default', ['help']);
-
 try {
   require('./gulp.config.js');
   //config = JSON.parse(fs.readFileSync('./gulp.config.json')),
   PATH = config.path;
 }catch (e){
-  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN COPY gulp.config-sample.json TO gulp.config.js");
-  console.log("\r\n ### IF YOU PROVIDED A gulp.config.js MAKE SURE THERE IS NO SYNTAX ERROR IN THAT FILE");
+  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
+  log(gutil.colors.underline('HOW-TO'));
+  log('Copy gulp.config-sample.js to ' + gutil.colors.bgCyan('gulp.config.js'));
+  log(gutil.colors.bold('cp gulp-config-sample.js gulp.config.js'));
   process.exit();
 }
-// injects links to index html
 
+/**
+ * List the available gulp tasks
+ */
+gulp.task('help', require('gulp-task-listing'));
+//Default Task
+gulp.task('default', ['help']);
+
+// injects links to index html
 gulp.task('inject', function () {
   var script = config.scripts.src,
       local = script.concat(config.css.src),
@@ -197,3 +201,23 @@ gulp.task('serve', function(){
 gulp.task('ionic-serve', function(){
   sequence('ionic-build', 'start-ionic-server');
 });
+
+
+
+// SOME INTERNAL FUNCTIONS
+
+/**
+ * Log a message or series of messages using chalk's blue color.
+ * Can pass in a string, object or array.
+ */
+function log(msg) {
+  if (typeof(msg) === 'object') {
+    for (var item in msg) {
+      if (msg.hasOwnProperty(item)) {
+        gutil.log(gutil.colors.white(msg[item]));
+      }
+    }
+  } else {
+    gutil.log(gutil.colors.white(msg));
+  }
+}
