@@ -58,7 +58,7 @@ cd drexler && ionic state reset && npm install && bower install
 
 ## Usage
 
-Copy file `gulp.config-sample.json` to `gulp.config.json` .
+Copy file `gulp.config-sample.js` to `gulp.config.js` .
 
 In this file you can save/read sensitive information about Drexler configuration.
 
