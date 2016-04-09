@@ -41,7 +41,7 @@ curl https://www.npmjs.com/install.sh | sh
 ### Global dependencies
 
 ```
-npm install -g ionic cordova bower gulp karma-cli
+npm install -g ionic cordova bower gulp
 ```
 
 ### Source code
@@ -75,7 +75,7 @@ In folder `src/client/test` you can code your tests.
 To execute all unit tests, use:
 
 ```
-gulp karma-test
+gulp test
 ```
 
 
@@ -98,12 +98,6 @@ ionic platform add android
 ionic build android            -> creates a android-debug apk
 ionic build --release android  -> creates a android-release-unsigned apk
 ```
-
-
-### start testing
-
-gulp karma-test
-
 
 
 
