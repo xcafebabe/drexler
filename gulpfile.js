@@ -73,14 +73,14 @@ gulp.task('inject', function () {
 gulp.task('sass', function(){
   return gulp.src(drexlerConfig.scss.src)
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-    .pipe(gulp.dest(drexlerConfig.scss.dest))
+    .pipe(gulp.dest(drexlerConfig.scss.dest));
 });
 
 // minify images
 gulp.task('images', function(){
   return gulp.src(drexlerConfig.images.src)
     .pipe(imagemin())
-    .pipe(gulp.dest(drexlerConfig.images.dest))
+    .pipe(gulp.dest(drexlerConfig.images.dest));
 });
 
 // gulp jshint
@@ -110,8 +110,8 @@ gulp.task('karma-test', function(done) {
 gulp.task('template', function () {
   return gulp.src(drexlerConfig.views.src)
     .pipe(templateCache({
-      module: "templates",
-      standalone: "true"
+      module: 'templates',
+      standalone: true
     }))
     .pipe(gulp.dest(drexlerConfig.views.dest));
 });
@@ -133,7 +133,8 @@ gulp.task('replace', function(){
         destLength = src.length;
 
     if( Object.prototype.toString.call( src ) === '[object Array]' ) {
-      var paternType = patterns.json ? { json: patterns.json} : { match: patterns.match, replacement: patterns.replacement };
+      var paternType = patterns.json ?
+        { json: patterns.json} : { match: patterns.match, replacement: patterns.replacement };
       for (var e = 0; e < destLength; e++){
         gulp.src(src[e])
           .pipe(replace({
