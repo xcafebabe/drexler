@@ -92,7 +92,7 @@ gulp.task('lint', function() {
 });
 
 // Karma test
-gulp.task('karma-test', function(done) {
+gulp.task('test', function(done) {
   var test = drexlerConfig.test.scripts,
     local = drexlerConfig.scripts.src.concat(test),
     vendor =  mainBowerFiles(),
