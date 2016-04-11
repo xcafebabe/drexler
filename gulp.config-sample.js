@@ -13,7 +13,8 @@ config = {
     "dest": "./src/client/app/"
   },
   "scripts": {
-    "src": ["./src/client/app/templates.js", "./src/client/app/app.js", "./src/client/app/**/*.js"],
+    "src": ["./vendors/angular-logger/dist/angular-logger.min.js"  // angular logger need to be added manually here
+      ,"./src/client/app/templates.js", "./src/client/app/app.js", "./src/client/app/app.config.js", "./src/client/app/**/*.js"],
     "dest": ""
   },
   "css": {
@@ -30,10 +31,13 @@ config = {
   },
   "test": {
     "src": ["/karma.conf.js"],
+    "frameworks": ['jasmine', 'mocha', 'chai', 'sinon'],
     "scripts": ["./src/client/test/**/*.js"],
     "exclude": ["**/*.+(eot|svg|ttf|woff)"],
     "dest": ""
   },
-  "dist": "www"
+  "dist": "www",
+  "stamps": [
+  ]
 }
 

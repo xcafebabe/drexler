@@ -28,12 +28,18 @@ try {
   console.log("\r\n ### IF YOU PROVIDED A gulp.config.js MAKE SURE THERE IS NO SYNTAX ERROR IN THAT FILE");
   process.exit();
 }
+
+gulp.task('c', function(){
+  var vendor =  mainBowerFiles(['**/*.js', '**/*.css']);
+
+  console.log(vendor);
+});
 // injects links to index html
 
 gulp.task('inject', function () {
   var script = config.scripts.src,
       local = script.concat(config.css.src),
-      vendor =  mainBowerFiles(),
+      vendor =  mainBowerFiles(['**/*.js', '**/*.css']),
       paths = vendor.concat(local);
 
   return gulp.src(config.index.src)
@@ -64,7 +70,7 @@ gulp.task('lint', function() {
 });
 
 // Karma test
-gulp.task('karma-test', function(done) {
+gulp.task('test', function(done) {
   var test = config.test.scripts,
     local = config.scripts.src.concat(test),
     vendor =  mainBowerFiles(),
