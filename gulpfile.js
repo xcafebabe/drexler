@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    sequence = require('run-sequence'),
+var sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
     mainBowerFiles = require('main-bower-files'),
@@ -15,55 +14,78 @@ var fs = require('fs'),
     ngAnnotate = require('gulp-ng-annotate'),
     replace = require('gulp-replace-task'),
     karma = require('karma').Server,
-    browserSync = require('browser-sync').create();
+    browserSync = require('browser-sync').create(),
+    gutil = require('gulp-util'),
+    args = require('yargs').argv,
+    fs = require('fs'),
+    drexlerConfig;
 
-// Getting settings.json configurations
 
+
+/**
+ * yargs variables can be passed in to alter the behavior, when present.
+ * Example: gulp serve-dev
+ *
+ * --config  : gulp.config.js location in filesystem
+ */
 try {
-  require('./gulp.config.js');
-  //config = JSON.parse(fs.readFileSync('./gulp.config.json')),
-  PATH = config.path
+  var configFilePath = './gulp.config.js';
+  if (args.config && fs.statSync(args.config).isFile()){
+    configFilePath = args.config;
+  }
+  drexlerConfig = require(configFilePath)();
+  if (!drexlerConfig.path){
+    log('In current config file ' + gutil.colors.bgCyan(configFilePath));
+    log('Can not find ' + gutil.colors.bold('config.path') + ' property');
+    log('Please provide a valid ' + gutil.colors.bold(configFilePath) + ' file');
+    process.exit();
+  }
 }catch (e){
-  console.log("\r\n ### PLEASE PROVIDE A gulp.config.js file \r\n ### YOU CAN RENAME gulp.config-sample.json TO gulp.config.js");
-  console.log("\r\n ### IF YOU PROVIDED A gulp.config.js MAKE SURE THERE IS NO SYNTAX ERROR IN THAT FILE");
+  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
+  log(gutil.colors.underline('HOW-TO'));
+  log('Copy gulp.config-sample.js to ' + gutil.colors.bgCyan('gulp.config.js'));
+  log(gutil.colors.bold('cp gulp-config-sample.js gulp.config.js'));
+  log(gutil.colors.red('Exception'));
+  console.log(e);
   process.exit();
 }
 
-gulp.task('c', function(){
-  var vendor =  mainBowerFiles(['**/*.js', '**/*.css']);
+/**
+ * List the available gulp tasks
+ */
+gulp.task('help', require('gulp-task-listing'));
+//Default Task
+gulp.task('default', ['help']);
 
-  console.log(vendor);
-});
 // injects links to index html
-
 gulp.task('inject', function () {
-  var script = config.scripts.src,
-      local = script.concat(config.css.src),
+  var script = drexlerConfig.scripts.src,
+      local = script.concat(drexlerConfig.css.src),
       vendor =  mainBowerFiles(['**/*.js', '**/*.css']),
       paths = vendor.concat(local);
 
-  return gulp.src(config.index.src)
-    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
-    .pipe(gulp.dest(PATH.temp))
+  return gulp.src(drexlerConfig.index.src)
+    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: drexlerConfig.path.dest}))
+    .pipe(gulp.dest(drexlerConfig.path.temp));
 });
 
 // converts sass to css
 gulp.task('sass', function(){
-  return gulp.src(config.scss.src)
+  return gulp.src(drexlerConfig.scss.src)
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
-    .pipe(gulp.dest(config.scss.dest))
+    .pipe(gulp.dest(drexlerConfig.scss.dest));
 });
 
 // minify images
 gulp.task('images', function(){
-  return gulp.src(config.images.src)
+  return gulp.src(drexlerConfig.images.src)
     .pipe(imagemin())
-    .pipe(gulp.dest(config.images.dest))
+    .pipe(gulp.dest(drexlerConfig.images.dest));
 });
 
 // gulp jshint
 gulp.task('lint', function() {
-  return gulp.src(config.scripts.src)
+  return gulp.src(drexlerConfig.scripts.src)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
@@ -71,14 +93,15 @@ gulp.task('lint', function() {
 
 // Karma test
 gulp.task('test', function(done) {
-  var test = config.test.scripts,
-    local = config.scripts.src.concat(test),
+
+  var test = drexlerConfig.test.scripts,
+    local = drexlerConfig.scripts.src.concat(test),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
   karma.start({
-    configFile: __dirname + config.test.src,
+    configFile: __dirname + drexlerConfig.test.src,
     files: paths,
-    exclude: config.test.exclude
+    exclude: drexlerConfig.test.exclude
   }, function() {
     done();
   });
@@ -86,12 +109,12 @@ gulp.task('test', function(done) {
 
 // converts angular templates to js cache
 gulp.task('template', function () {
-  return gulp.src(config.views.src)
+  return gulp.src(drexlerConfig.views.src)
     .pipe(templateCache({
-      module: "templates",
-      standalone: "true"
+      module: 'templates',
+      standalone: true
     }))
-    .pipe(gulp.dest(config.views.dest));
+    .pipe(gulp.dest(drexlerConfig.views.dest));
 });
 
 // runs ionic serve
@@ -102,7 +125,7 @@ gulp.task('start-ionic-server', function(){
 // runs ionic serve
 gulp.task('replace', function(){
 
-  var stamps = config.stamps,
+  var stamps = drexlerConfig.stamps,
       length = stamps.length;
   for (var i = 0; i < length; i++){
     var item = stamps[i],
@@ -111,7 +134,8 @@ gulp.task('replace', function(){
         destLength = src.length;
 
     if( Object.prototype.toString.call( src ) === '[object Array]' ) {
-      var paternType = patterns.json ? { json: patterns.json} : { match: patterns.match, replacement: patterns.replacement };
+      var paternType = patterns.json ?
+        { json: patterns.json} : { match: patterns.match, replacement: patterns.replacement };
       for (var e = 0; e < destLength; e++){
         gulp.src(src[e])
           .pipe(replace({
@@ -143,42 +167,41 @@ gulp.task('replace', function(){
 gulp.task('ionic-build', function(){
 
   sequence('lint', 'images', 'sass');
-  var script = config.scripts.src,
-    local = script.concat(config.css.src),
+  var script = drexlerConfig.scripts.src,
+    local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
 
-  return gulp.src(config.index.src)
-    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: PATH.dest}))
-    .pipe(gulp.dest(config.dist))
-    .pipe(useref({ searchPath: ['.', PATH.src] }))
+  return gulp.src(drexlerConfig.index.src)
+    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: drexlerConfig.path.dest}))
+    .pipe(gulp.dest(drexlerConfig.dist))
+    .pipe(useref({ searchPath: ['.', drexlerConfig.src] }))
     .pipe(gulpIf('*.js', ngAnnotate()))
     .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', cssnano()))
-    .pipe(gulp.dest(config.dist));
+    .pipe(gulp.dest(drexlerConfig.dist));
 });
 
 // starts a server for src
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: [PATH.temp],
+      baseDir: [drexlerConfig.path.temp],
       routes: {
-        "/vendors": "vendors",
-        "/app": "src/client/app",
-        "/content": "src/client/content"
+        '/vendors': 'vendors',
+        '/app': 'src/client/app',
+        '/content': 'src/client/content'
       }
     },
-  })
+  });
 });
 
 // serve all the required files for src
 gulp.task('serve', function(){
   sequence('browserSync', 'template', 'sass', 'inject');
-  gulp.watch(config.views.src, browserSync.reload);
-  gulp.watch(config.scripts.src, browserSync.reload);
-  gulp.watch(config.css.src, browserSync.reload);
-
+  gulp.watch(drexlerConfig.views.src, browserSync.reload);
+  gulp.watch(drexlerConfig.scripts.src, browserSync.reload);
+  gulp.watch(drexlerConfig.css.src, browserSync.reload);
 });
 
 // build and serve files in www
@@ -186,3 +209,22 @@ gulp.task('ionic-serve', function(){
   sequence('ionic-build', 'start-ionic-server');
 });
 
+
+
+// SOME INTERNAL FUNCTIONS
+
+/**
+ * Log a message or series of messages using chalk's blue color.
+ * Can pass in a string, object or array.
+ */
+function log(msg) {
+  if (typeof(msg) === 'object') {
+    for (var item in msg) {
+      if (msg.hasOwnProperty(item)) {
+        gutil.log(gutil.colors.white(msg[item]));
+      }
+    }
+  } else {
+    gutil.log(gutil.colors.white(msg));
+  }
+}
