@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var app = angular.module('starter', ['ionic', 'templates']);
+var app = angular.module('starter', ['ionic', 'templates', 'angular-logger']);
 
 app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
