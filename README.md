@@ -160,7 +160,7 @@ WIP
       }
     },
     {
-      "src": "file2.txt",                 // suppor one string if there is only one file
+      "src": "file2.txt",                 // support one string if there is only one file
       "dest": "",                         // empty string if want to replace current file
       "patterns": {
         "match": /der/g,
