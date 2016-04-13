@@ -7,7 +7,7 @@
   },
   "overrides": {
     "angular-logger": {
-      "main": []
+      "main": ["./dist/angular-logger.min.js"]
     }
   }
 }
