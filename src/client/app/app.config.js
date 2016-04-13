@@ -1,12 +1,15 @@
-app.factory("log", function($log){
+(function(){
+  'use strict';
+  angular.module('drexler').factory('log', function($log){
 
-  var log = {
-    globalLogger: $log.getInstance('Global'),
-    dashLogger: $log.getInstance('Dash')
-  }
+    var log = {
+      globalLogger: $log.getInstance('Global'),
+      dashLogger: $log.getInstance('Dash')
+    };
 
-  $log.logLevels['Global'] = $log.LEVEL["ON"];
-  $log.logLevels['Dash'] = $log.LEVEL["OFF"];
+    $log.logLevels['Global'] = $log.LEVEL['ON'];
+    $log.logLevels['Dash'] = $log.LEVEL['OFF'];
 
-  return log;
-})
+    return log;
+  });
+})();

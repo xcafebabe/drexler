@@ -5,10 +5,11 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+(function() {
+  'use strict';
+  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger']);
 
-var app = angular.module('starter', ['ionic', 'templates', 'angular-logger']);
-
-app.run(function($ionicPlatform) {
+  app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -32,30 +33,30 @@ app.run(function($ionicPlatform) {
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-      // setup an abstract state for the tabs directive
+    // setup an abstract state for the tabs directive
       .state('tab', {
-        url: '/tab',
-        abstract: true,
-        templateUrl: 'tabs/tabs.html'
-      })
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'app/tabs/tabs.html'
+    })
 
-      // Each tab has its own nav history stack:
+    // Each tab has its own nav history stack:
 
-      .state('tab.dash', {
-        url: '/dash',
-        views: {
-          'tab-dash': {
-            templateUrl: 'dash/tab-dash.html',
-            controller: 'DashCtrl'
-          }
+    .state('tab.dash', {
+      url: '/dash',
+      views: {
+        'tab-dash': {
+          templateUrl: 'app/dash/tab-dash.html',
+          controller: 'DashCtrl'
         }
-      })
+      }
+    })
 
-      .state('tab.chats', {
+    .state('tab.chats', {
         url: '/chats',
         views: {
           'tab-chats': {
-            templateUrl: 'chat/tab-chats.html',
+            templateUrl: 'app/chat/tab-chats.html',
             controller: 'ChatsCtrl'
           }
         }
@@ -64,23 +65,25 @@ app.run(function($ionicPlatform) {
         url: '/chats/:chatId',
         views: {
           'tab-chats': {
-            templateUrl: 'chat/chat-detail.html',
+            templateUrl: 'app/chat/chat-detail.html',
             controller: 'ChatDetailCtrl'
           }
         }
       })
 
-      .state('tab.account', {
-        url: '/account',
-        views: {
-          'tab-account': {
-            templateUrl: 'account/tab-account.html',
-            controller: 'AccountCtrl'
-          }
+    .state('tab.account', {
+      url: '/account',
+      views: {
+        'tab-account': {
+          templateUrl: 'app/account/tab-account.html',
+          controller: 'AccountCtrl'
         }
-      });
+      }
+    });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/dash');
 
   });
+
+})();

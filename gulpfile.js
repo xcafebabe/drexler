@@ -1,3 +1,4 @@
+'use strict';
 var sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
@@ -110,12 +111,20 @@ gulp.task('test', function(done) {
   });
 });
 
-// converts angular templates to js cache
-gulp.task('template', function () {
+/**
+ * Create $templateCache from the html view templates
+ * @return {Stream}
+ */
+gulp.task('templatecache', function () {
+  log('Creating an AngularJS $templateCache');
   return gulp.src(drexlerConfig.views.src)
-    .pipe(templateCache({
-      module: 'templates',
-      standalone: true
+    //  .pipe(plug.minifyHtml({
+    //       empty: true
+    //   }))
+    .pipe(templateCache(drexlerConfig.views.filename, {
+      module: 'drexler.core',
+      standalone: false,
+      root : 'app/'
     }))
     .pipe(gulp.dest(drexlerConfig.views.dest));
 });
@@ -161,16 +170,13 @@ gulp.task('replace', function(){
         }))
         .pipe(gulp.dest(item.dest));
     }
-
-
   }
 });
 
 // build files from src to www
 gulp.task('ionic-build', function(){
-
-  sequence('images', 'sass', 'lint');
-  var script = drexlerConfig.scripts.src,
+  sequence('images', 'sass', 'lint', 'templatecache', 'replace');
+  var script = [].concat(drexlerConfig.scripts.src, drexlerConfig.views.dest + drexlerConfig.views.filename),
     local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
@@ -185,6 +191,9 @@ gulp.task('ionic-build', function(){
     .pipe(gulp.dest(drexlerConfig.dist));
 });
 
+//ionic-build task overloaded
+gulp.task('build',['ionic-build']);
+
 // starts a server for src
 gulp.task('browserSync', function() {
   browserSync.init({
@@ -192,8 +201,8 @@ gulp.task('browserSync', function() {
       baseDir: [drexlerConfig.path.temp],
       routes: {
         '/vendors': 'vendors',
-        '/app': 'src/client/app',
-        '/content': 'src/client/content'
+        '/content': 'src/client/content',
+        '/app' : 'src/client/app'
       }
     },
   });
@@ -201,7 +210,7 @@ gulp.task('browserSync', function() {
 
 // serve all the required files for src
 gulp.task('serve', function(){
-  sequence('browserSync', 'template', 'sass', 'inject');
+  sequence('browserSync', 'sass', 'inject');
   gulp.watch(drexlerConfig.views.src, browserSync.reload);
   gulp.watch(drexlerConfig.scripts.src, browserSync.reload);
   gulp.watch(drexlerConfig.css.src, browserSync.reload);
@@ -214,7 +223,6 @@ gulp.task('ionic-serve', function(){
 
 // gulp clean temp folders
 gulp.task('clean', function () {
-
   sequence('delete', 'fillwww');
 });
 

@@ -11,7 +11,8 @@ module.exports = function(){
     },
     'views': {
       'src': ['./src/client/app/**/*html'],
-      'dest': './src/client/app/'
+      'dest': './.tmp/',
+      'filename' : 'templates.js'
     },
     'scripts': {
       'src': ['./src/client/app/templates.js', './src/client/app/app.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
@@ -40,9 +41,17 @@ module.exports = function(){
       'dest': ''
     },
     'dist': 'www',
-    'stamps': [
+    'stamps': [ //Only has sense during build time
+      {
+        'src': './www/index.html', // support one string if there is only one file
+        'dest': '', // empty string if want to replace current file
+        'patterns': {
+          'match': 'VERSION_NUMER',
+          'replacement': '1.1.0'
+        }
+      },
     ]
-  }
+  };
 
   return config;
 };
