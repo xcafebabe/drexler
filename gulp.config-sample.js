@@ -14,8 +14,7 @@ module.exports = function(){
       "dest": "./src/client/app/"
     },
     "scripts": {
-      "src": ["./vendors/angular-logger/dist/angular-logger.min.js"  // angular logger need to be added manually here
-        ,"./src/client/app/templates.js", "./src/client/app/app.js", "./src/client/app/app.config.js", "./src/client/app/**/*.js"],
+      "src": ["./src/client/app/templates.js", "./src/client/app/app.js", "./src/client/app/app.config.js", "./src/client/app/**/*.js"],
       "dest": ""
     },
     "css": {
@@ -32,7 +31,10 @@ module.exports = function(){
     },
     "test": {
       "src": ["/karma.conf.js"],
-      "frameworks": ['jasmine', 'mocha', 'chai', 'sinon'],
+      "frameworks": ['mocha', 'chai'],
+      "preprocessors": {
+        'src/client/test/*.js': [ 'browserify' ]
+      },
       "scripts": ["./src/client/test/**/*.js"],
       "exclude": ["**/*.+(eot|svg|ttf|woff)"],
       "dest": ""
