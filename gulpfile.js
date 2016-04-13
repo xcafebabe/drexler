@@ -16,6 +16,8 @@ var sequence = require('run-sequence'),
     karma = require('karma').Server,
     browserSync = require('browser-sync').create(),
     gutil = require('gulp-util'),
+    del = require('del'),
+    file = require('gulp-file'),
     args = require('yargs').argv,
     fs = require('fs'),
     drexlerConfig;
@@ -93,7 +95,6 @@ gulp.task('lint', function() {
 
 // Karma test
 gulp.task('test', function(done) {
-
   var test = drexlerConfig.test.scripts,
     local = drexlerConfig.scripts.src.concat(test),
     vendor =  mainBowerFiles(),
@@ -101,6 +102,8 @@ gulp.task('test', function(done) {
   karma.start({
     configFile: __dirname + drexlerConfig.test.src,
     files: paths,
+    frameworks: drexlerConfig.test.frameworks,
+    preprocessors: drexlerConfig.test.preprocessors,
     exclude: drexlerConfig.test.exclude
   }, function() {
     done();
@@ -166,14 +169,14 @@ gulp.task('replace', function(){
 // build files from src to www
 gulp.task('ionic-build', function(){
 
-  sequence('lint', 'images', 'sass');
+  sequence('images', 'sass', 'lint');
   var script = drexlerConfig.scripts.src,
     local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
 
   return gulp.src(drexlerConfig.index.src)
-    .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: drexlerConfig.path.dest}))
+    .pipe(inject(gulp.src(paths, {read: false})))
     .pipe(gulp.dest(drexlerConfig.dist))
     .pipe(useref({ searchPath: ['.', drexlerConfig.src] }))
     .pipe(gulpIf('*.js', ngAnnotate()))
@@ -209,7 +212,32 @@ gulp.task('ionic-serve', function(){
   sequence('ionic-build', 'start-ionic-server');
 });
 
+// gulp clean temp folders
+gulp.task('clean', function () {
 
+  sequence('delete', 'fillwww');
+});
+
+gulp.task('delete', function () {
+
+  return del(['.tmp', 'www/**/*']);
+});
+
+gulp.task('fillwww', function () {
+  var str = "<!DOCTYPE html>\n"           +
+            "<html lang='en'>\n"          +
+            " <head>\n"                   +
+            "  <meta charset='UTF-8'>\n"  +
+            "  <title></title>\n"         +
+            " </head>\n"                  +
+            " <body>\n"                   +
+            " "                           +
+            " </body>\n"                  +
+            "</html>\n"
+
+
+  return file('index.html', str).pipe(gulp.dest('www'));
+});
 
 // SOME INTERNAL FUNCTIONS
 
