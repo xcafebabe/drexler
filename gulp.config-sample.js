@@ -15,7 +15,7 @@ module.exports = function(){
       'filename' : 'templates.js'
     },
     'scripts': {
-      'src': ['./src/client/app/templates.js', './src/client/app/app.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
+      'src': ["./src/client/app/core/**/*.js", "./.tmp/templates.js", './src/client/app/app.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
       'dest': ''
     },
     'css': {
@@ -32,7 +32,7 @@ module.exports = function(){
     },
     'test': {
       'src': ['/karma.conf.js'],
-      'frameworks': ['mocha', 'chai'],
+      'frameworks': ['jasmine', 'mocha', 'browserify', 'chai', 'sinon', 'chai-sinon'],
       'preprocessors': {
         'src/client/test/*.js': [ 'browserify' ]
       },
@@ -44,7 +44,7 @@ module.exports = function(){
     'stamps': [ //Only has sense during build time
       {
         'src': './www/index.html', // support one string if there is only one file
-        'dest': '', // empty string if want to replace current file
+        'dest': '.tmp/', // folder with the replaced file
         'patterns': {
           'match': 'VERSION_NUMER',
           'replacement': '1.1.0'
