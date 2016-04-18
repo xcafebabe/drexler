@@ -130,11 +130,6 @@ gulp.task('templatecache', function () {
 });
 
 // runs ionic serve
-gulp.task('start-ionic-server', function(){
-  exec('ionic serve', function (err, stdout, stderr) {});
-});
-
-// runs ionic serve
 gulp.task('replace', function(){
 
   var stamps = drexlerConfig.stamps,
@@ -175,24 +170,29 @@ gulp.task('replace', function(){
 
 // build files from src to www
 gulp.task('ionic-build', function(){
-  sequence('images', 'sass', 'lint', 'templatecache', 'replace');
+  sequence('images', 'sass', 'templatecache', 'replace', 'build');
+});
+
+// runs ionic serve
+gulp.task('start-ionic-server', function(){
+  exec('ionic serve', function (err, stdout, stderr) {});
+});
+
+//ionic-build task overloaded
+gulp.task('build', function(){
   var script = [].concat(drexlerConfig.scripts.src, drexlerConfig.views.dest + drexlerConfig.views.filename),
     local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
-
   return gulp.src(drexlerConfig.index.src)
     .pipe(inject(gulp.src(paths, {read: false})))
     .pipe(gulp.dest(drexlerConfig.dist))
-    .pipe(useref({ searchPath: ['.', drexlerConfig.src] }))
+    .pipe(useref({ searchPath: ['.'] }))
     .pipe(gulpIf('*.js', ngAnnotate()))
     .pipe(gulpIf('*.js', uglify()))
     .pipe(gulpIf('*.css', cssnano()))
     .pipe(gulp.dest(drexlerConfig.dist));
 });
-
-//ionic-build task overloaded
-gulp.task('build',['ionic-build']);
 
 // starts a server for src
 gulp.task('browserSync', function() {
@@ -218,7 +218,7 @@ gulp.task('serve', function(){
 
 // build and serve files in www
 gulp.task('ionic-serve', function(){
-  sequence('ionic-build', 'start-ionic-server');
+  sequence('images', 'sass', 'templatecache', 'replace', 'build', 'start-ionic-server');
 });
 
 // gulp clean temp folders
