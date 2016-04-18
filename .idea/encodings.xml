@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/bower.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulp.config-sample.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulp.config.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gulp.config.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gulpfile.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/package.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/client/app/account/account.controller.js" charset="UTF-8" />
@@ -15,6 +16,7 @@
     <file url="file://$PROJECT_DIR$/src/client/app/chat/chat.controller.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/client/app/dash/dash.controller.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/client/app/templates.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/client/app/test.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/client/test/exampleTest.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vendors/angular-logger/dist/angular-logger.js" charset="UTF-8" />
   </component>
