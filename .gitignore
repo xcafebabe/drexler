@@ -10,5 +10,6 @@ plugins/
 www/
 www/index.html
 gulp.config.js
+.idea/
 
 

@@ -7,7 +7,7 @@
     "Alexander Pleshcheev"
   ],
   "license": "MIT",
-  "homepage" : "https://bitbucket.org/bytesauce/drexler",
+  "homepage": "https://bitbucket.org/bytesauce/drexler",
   "scripts": {
     "init": "npm install",
     "install": "bower install",
@@ -58,7 +58,8 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-globalization"
   ],
   "cordovaPlatforms": [
     "android"

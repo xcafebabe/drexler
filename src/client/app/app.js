@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 (function() {
   'use strict';
-  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger']);
+  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger','ngCordova']);
 
   app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
