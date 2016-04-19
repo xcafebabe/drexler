@@ -43,13 +43,13 @@ module.exports = function(){
     'dist': 'www',
     'stamps': [ //Only has sense during build time
       {
-        'src': './www/index.html', // support one string if there is only one file
+        'src': './.tmp/templates.js', // support one string if there is only one file
         'dest': '.tmp/', // folder with the replaced file
         'patterns': {
-          'match': 'VERSION_NUMER',
+          'match': /VERSION_NUMBER/g,
           'replacement': '1.1.0'
         }
-      },
+      }
     ]
   };
 
