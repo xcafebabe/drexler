@@ -20,6 +20,7 @@
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
     "del": "^2.2.0",
+    "grunt-angular-gettext": "^2.1.14",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-cssnano": "^2.1.1",
@@ -63,5 +64,9 @@
   ],
   "cordovaPlatforms": [
     "android"
-  ]
+  ],
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0"
+  }
 }

@@ -7,9 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 (function() {
   'use strict';
-  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger','ngCordova']);
+  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger','ngCordova','gettext', 'ngStorage']);
 
-  app.run(function($ionicPlatform) {
+  app.run(function($ionicPlatform, gettextCatalog, $localStorage) {
+      gettextCatalog.setStrings('es', {"Hello World":"Hola Mundo"});
+      gettextCatalog.setCurrentLanguage($localStorage.language.id);
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -77,6 +79,15 @@
         'tab-account': {
           templateUrl: 'app/account/tab-account.html',
           controller: 'AccountCtrl'
+        }
+      }
+    })
+    .state('tab.lang', {
+      url: '/lang',
+      views: {
+        'tab-lang': {
+          templateUrl: 'app/language/tab-lang.html',
+          controller: 'LanguageCtrl'
         }
       }
     });

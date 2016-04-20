@@ -1,0 +1,25 @@
+<ion-view view-title="Language">
+  <ion-content>
+    <ion-list>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Select Language
+        </div>
+        <select name="mySelect" id="mySelect"
+                ng-options="option.name for option in data.availableOptions track by option.id"
+                ng-model="data.selectedOption"
+                ng-change="changeLang()"></select>
+
+      </label>
+    </ion-list>
+    <div class="card">
+      <div class="item item-divider">
+        Test Label
+      </div>
+      <div class="item item-text-wrap">
+        <p translate>Hello World</p>
+      </div>
+    </div>
+  </ion-content>
+
+</ion-view>
