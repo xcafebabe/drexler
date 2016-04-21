@@ -1,15 +1,15 @@
 (function() {
   'use strict';
-  angular.module('drexler').controller('LanguageCtrl', function($scope, gettextCatalog, $localStorage) {
+  angular.module('drexler').controller('LanguageCtrl', function($scope, gettextCatalog, drexlerStorage) {
     $scope.data = {
       availableOptions: [
         {id: 'en', name: 'English'},
         {id: 'es', name: 'Spanish'}
       ],
-      selectedOption: $localStorage.language //This sets the default value of the select in the ui
+      selectedOption: drexlerStorage.get('language') //This sets the default language from the local storage :A
     };
     $scope.changeLang = function () {
-      $localStorage.language = $scope.data.selectedOption;
+      drexlerStorage.set('language',$scope.data.selectedOption);
       location.reload();
     }
   });

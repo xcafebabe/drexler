@@ -7,11 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 (function() {
   'use strict';
-  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger','ngCordova','gettext', 'ngStorage']);
+  var app = angular.module('drexler', ['drexler.core' ,'ionic', 'angular-logger','ngCordova','gettext']);
 
-  app.run(function($ionicPlatform, gettextCatalog, $localStorage) {
+  app.run(function($ionicPlatform, gettextCatalog, drexlerStorage) {
       gettextCatalog.setStrings('es', {"Hello World":"Hola Mundo"});
-      gettextCatalog.setCurrentLanguage($localStorage.language.id);
+      gettextCatalog.setCurrentLanguage(drexlerStorage.get('language').id);
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
