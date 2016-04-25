@@ -10,8 +10,8 @@
   var app = angular.module('drexler', ['drexler.core' ,'ionic', 'angular-logger','ngCordova','gettext']);
 
   app.run(function($ionicPlatform, gettextCatalog, drexlerStorage) {
-      gettextCatalog.setStrings('es', {"Hello World":"Hola Mundo"});
-      gettextCatalog.setCurrentLanguage(drexlerStorage.get('language').id);
+    gettextCatalog.setStrings('es', {"Hello World":"Hola Mundo"});
+    gettextCatalog.setCurrentLanguage(drexlerStorage.get('language').id);
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)

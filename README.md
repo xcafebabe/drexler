@@ -158,7 +158,7 @@ Together is the [LIFT](https://github.com/johnpapa/angular-styleguide/blob/maste
       "src": ["file.txt", "file1.txt"],    // files to edit
       "dest": ".tmp/",                     // folder to store or empty string if want to replace file on root
       "patterns": {
-        "match": /foo/g,                   // word to find
+        "match": /foo/g,                   // regular expression word to find
         "replacement": "bar"               // replace with
       }
     },
@@ -166,7 +166,7 @@ Together is the [LIFT](https://github.com/johnpapa/angular-styleguide/blob/maste
       "src": "file2.txt",                 // support one string if there is only one file
       "dest": "",                         
       "patterns": {
-        "match": /der/g,
+        "match": /der/g,                  // regular expression word to find
         "replacement": "ferfer"
       }
     },
