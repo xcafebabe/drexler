@@ -13,7 +13,6 @@
 
     // Get local Variable
     this.get = function (key) {
-      console.log($localStorage[key]);
       return $localStorage[key];
 
     };

@@ -23,7 +23,7 @@
         gettextCatalog.setCurrentLanguage(drexlerStorage.get('language').id);
       }
       else { // If the local variable for language doesn't exists check for device language :A
-        if($ionicPlatform.is.name.length > 0) { // This is to just check for platfomr so that we don't get error on borwser :A
+        if($ionicPlatform.is.name.length > 0) { // This is to just check for platform so that we don't get error on borwser :A
           $cordovaGlobalization.getPreferredLanguage().then(
             function (deviceLang) { // Setting device language :A
               gettextCatalog.setCurrentLanguage(deviceLang.value);
