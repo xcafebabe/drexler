@@ -3,8 +3,8 @@
   angular.module('drexler').controller('LanguageCtrl', function($scope, gettextCatalog, drexlerStorage) {
     $scope.data = {
       availableOptions: [
-        {id: 'en', name: 'English'},
-        {id: 'es', name: 'Spanish'}
+        {id: 'en-US', name: 'English'},
+        {id: 'es-ES', name: 'Spanish'}
       ],
       selectedOption: drexlerStorage.get('language') //This sets the default language from the local storage :A
     };

@@ -9,7 +9,7 @@
 
     $log.logLevels['Global'] = $log.LEVEL['ON'];
     $log.logLevels['Dash'] = $log.LEVEL['OFF'];
-
+    
     return log;
   });
 })();
