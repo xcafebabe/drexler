@@ -197,8 +197,16 @@ gulp.task('build', function(){
 gulp.task('move-contents', function(){
   // the base option sets the relative root for the set of files,
   // preserving the folder structure
-  gulp.src(['./src/client/content/**', '!./src/client/content/scss/**', '!./src/client/content/scss/'])
+  gulp.src(['./src/client/content/**', '!./src/client/content/scss/**', '!./src/client/content/scss/',
+    '!./src/client/content/fonts/**', '!./src/client/content/fonts/'])
     .pipe(gulp.dest('www/content/'));
+});
+
+gulp.task('move-fonts', function(){
+  // the base option sets the relative root for the set of files,
+  // preserving the folder structure
+  gulp.src(['./src/client/content/fonts/**/*'])
+    .pipe(gulp.dest('www/fonts/'));
 });
 
 // starts a server for src
@@ -225,7 +233,7 @@ gulp.task('serve', function(){
 
 // build and serve files in www
 gulp.task('ionic-serve', function(){
-  sequence('move-contents', 'images', 'sass', 'templatecache', 'replace', 'build', 'start-ionic-server');
+  sequence('move-fonts', 'move-contents', 'images', 'sass', 'templatecache', 'replace', 'build', 'start-ionic-server');
 });
 
 // gulp clean temp folders
