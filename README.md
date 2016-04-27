@@ -114,7 +114,7 @@ Note: Do not structure your app using folders-by-type. This requires moving to m
 src/
   client/
     app/
-      app.js         -> Standard angular app module boot
+      app.module.js         -> Standard angular app module boot
       template.js    -> Needed to compile views
       dashboard/     -> Dashboard Feature
         shell.html

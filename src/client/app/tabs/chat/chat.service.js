@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('drexler').factory('Chats', function() {
+  angular.module('drexler.tabs').factory('Chats', function() {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data

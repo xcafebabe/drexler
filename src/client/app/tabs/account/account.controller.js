@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('drexler').controller('AccountCtrl', function($scope) {
+  angular.module('drexler.tabs').controller('AccountCtrl', function($scope) {
     $scope.settings = {
       enableFriends: true
     };

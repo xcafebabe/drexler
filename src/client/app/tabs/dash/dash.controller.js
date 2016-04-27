@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  angular.module('drexler').controller('DashCtrl', function($scope, $log, log,$cordovaGlobalization, $ionicPlatform ) {
+  angular.module('drexler.tabs').controller('DashCtrl', function($scope, $log,logger,$cordovaGlobalization, $ionicPlatform ) {
 
     var globalLogger = $log.getInstance('Global');
     var dashLogger = $log.getInstance('Dash');
