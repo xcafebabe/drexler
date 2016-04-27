@@ -1,9 +1,15 @@
 (function(){
   'use strict';
-  angular.module('drexler.tabs').controller('DashCtrl', function($scope, $log,logger,$cordovaGlobalization, $ionicPlatform ) {
+  angular.module('drexler.tabs').controller('DashCtrl', function($scope, $log,logger,$cordovaGlobalization, $ionicPlatform , $cordovaGeolocation) {
 
     var globalLogger = $log.getInstance('Global');
     var dashLogger = $log.getInstance('Dash');
+
+    $cordovaGeolocation.getCurrentPosition().then(function (value) {
+      console.log(value);
+    },function (err) {
+      console.log(err);
+    });
 
     globalLogger.info('This is a global log');
     dashLogger.info('This is a dash log');

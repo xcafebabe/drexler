@@ -177,7 +177,7 @@ gulp.task('start-ionic-server', function(){
 
 //ionic-build task overloaded
 gulp.task('build', function(){
-  var script = [].concat(drexlerConfig.scripts.src, drexlerConfig.views.dest + drexlerConfig.views.filename),
+  var script = [].concat(drexlerConfig.scripts.buildsrc, drexlerConfig.views.dest + drexlerConfig.views.filename),
     local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
@@ -214,7 +214,8 @@ gulp.task('browserSync', function() {
       routes: {
         '/vendors': 'vendors',
         '/content': 'src/client/content',
-        '/app' : 'src/client/app'
+        '/app' : 'src/client/app',
+        '/src/mock-cordova' : 'src/mock-cordova'
       }
     },
   });
