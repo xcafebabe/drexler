@@ -1,4 +1,3 @@
-'use strict';
 var sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
@@ -22,8 +21,6 @@ var sequence = require('run-sequence'),
     args = require('yargs').argv,
     fs = require('fs'),
     drexlerConfig;
-
-
 
 /**
  * yargs variables can be passed in to alter the behavior, when present.
@@ -256,7 +253,7 @@ gulp.task('fillwww', function () {
             " <body>\n"                   +
             " "                           +
             " </body>\n"                  +
-            "</html>\n"
+            "</html>\n";
 
 
   return file('index.html', str).pipe(gulp.dest('www'));

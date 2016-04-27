@@ -7,12 +7,34 @@
 // 'starter.controllers' is found in controllers.js
 (function() {
   'use strict';
-  var app = angular.module('drexler', ['ionic', 'drexler.core', 'angular-logger','ngCordova','gettext', 'ngStorage']);
+  var app = angular.module('drexler', ['drexler.core' ,'ionic', 'angular-logger','ngCordova','gettext']);
 
-  app.run(function($ionicPlatform, gettextCatalog, $localStorage) {
-      gettextCatalog.setStrings('es', {"Hello World":"Hola Mundo"});
-      gettextCatalog.setCurrentLanguage($localStorage.language.id);
+  app.run(function($ionicPlatform, gettextCatalog, drexlerStorage, $cordovaGlobalization) {
+
+    //This is just an example for agnular get text translation , in futre we will move this in a separate module :A
+    gettextCatalog.setStrings('es-ES', {"Hello World":"Hola Mundo"});
+
+
+
     $ionicPlatform.ready(function() {
+
+      // Applying logic for Language from Localstorage > Language from Device > Default Language :A
+      if(drexlerStorage.get('language')){ // Checking if local storage varibale for drexler exists :A
+        gettextCatalog.setCurrentLanguage(drexlerStorage.get('language').id);
+      }
+      else { // If the local variable for language doesn't exists check for device language :A
+        if($ionicPlatform.is.name.length > 0) { // This is to just check for platform so that we don't get error on borwser :A
+          $cordovaGlobalization.getPreferredLanguage().then(
+            function (deviceLang) { // Setting device language :A
+              gettextCatalog.setCurrentLanguage(deviceLang.value);
+            },
+            function (error) { // If We can not get language from device either because shit happens sometimes we go for default :A
+              gettextCatalog.setCurrentLanguage('en-EN'); // We will move this drexler constants :A
+            });
+        }
+      }
+      // EO - Language selection :A
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
