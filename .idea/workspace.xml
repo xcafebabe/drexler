@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a760ae9c-8640-47ea-9499-641b266713e2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/client/app/app.config.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/app/core/core.module.js" afterPath="$PROJECT_DIR$/src/client/app/core/core.module.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/account/account.controller.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/account/account.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/account/tab-account.html" afterPath="$PROJECT_DIR$/src/client/app/tabs/account/tab-account.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/app.js" afterPath="$PROJECT_DIR$/src/client/app/app.module.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/chat/chat-detail.controller.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/chat/chat-detail.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/chat/chat-detail.html" afterPath="$PROJECT_DIR$/src/client/app/tabs/chat/chat-detail.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/chat/chat.controller.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/chat/chat.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/chat/chat.service.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/chat/chat.service.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/chat/tab-chats.html" afterPath="$PROJECT_DIR$/src/client/app/tabs/chat/tab-chats.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/dash/dash.controller.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/dash/dash.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/dash/tab-dash.html" afterPath="$PROJECT_DIR$/src/client/app/tabs/dash/tab-dash.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/language/language.controller.js" afterPath="$PROJECT_DIR$/src/client/app/tabs/language/language.controller.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/client/app/language/tab-lang.html" afterPath="$PROJECT_DIR$/src/client/app/tabs/language/tab-lang.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js" afterPath="$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js" />
     </list>
     <ignored path="drexler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,45 +24,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.module.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/app/app.module.js">
+      <file leaf-file-name="core.service.localStorage.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+            <state relative-caret-position="315">
+              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.module.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/app/core/core.module.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.translations.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client/app/core/core.translations.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tabs.module.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/client/app/tabs/tabs.module.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-              <folding>
-                <element signature="e#155#1897#0" expanded="false" />
-                <element signature="e#1985#3714#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -117,7 +69,6 @@
         <option value="$PROJECT_DIR$/src/client/app/test.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/js/main.min.js" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/gulp.config-sample.js" />
         <option value="$PROJECT_DIR$/gulp.config.js" />
         <option value="$PROJECT_DIR$/README.md" />
@@ -132,7 +83,6 @@
         <option value="$PROJECT_DIR$/src/client/app/core/core.translations.js" />
         <option value="$PROJECT_DIR$/src/client/app/language/tab-lang.html" />
         <option value="$PROJECT_DIR$/src/client/app/core/core.localStorage.js" />
-        <option value="$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js" />
         <option value="$PROJECT_DIR$/src/client/app/core/core.constants.js" />
         <option value="$PROJECT_DIR$/src/client/app/language/language.controller.js" />
         <option value="$PROJECT_DIR$/src/client/app/app.js" />
@@ -148,6 +98,8 @@
         <option value="$PROJECT_DIR$/src/client/app/common/logger.factory.js" />
         <option value="$PROJECT_DIR$/src/client/app/tabs/dash/dash.controller.js" />
         <option value="$PROJECT_DIR$/src/client/app/app.module.js" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js" />
       </list>
     </option>
   </component>
@@ -352,32 +304,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="tabs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drexler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drexler2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -514,12 +440,12 @@
       <workItem from="1461413087042" duration="1245000" />
       <workItem from="1461432120692" duration="639000" />
       <workItem from="1461673777281" duration="7957000" />
-      <workItem from="1461747754363" duration="3078000" />
+      <workItem from="1461747754363" duration="5614000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33129000" />
+    <option name="totallyTimeSpent" value="35665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -783,14 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/app/core/app.core.module.js" />
     <entry file="file://$PROJECT_DIR$/gulp.config.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -865,14 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/app/core/core.service.constants.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
@@ -889,34 +799,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/app/app.module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/app/common/common.module.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.translations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -929,6 +815,46 @@
             <element signature="e#155#1897#0" expanded="false" />
             <element signature="e#1985#3714#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.translations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/app/app.module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="221" column="0" selection-start-line="221" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/app/core/core.service.localStorage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
