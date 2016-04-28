@@ -20,20 +20,29 @@ var sequence = require('run-sequence'),
     file = require('gulp-file'),
     args = require('yargs').argv,
     fs = require('fs'),
+    lodash = require('lodash'),
     drexlerConfig;
 
 /**
  * yargs variables can be passed in to alter the behavior, when present.
- * Example: gulp serve-dev
- *
- * --config  : gulp.config.js location in filesystem
+ * i.e.: gulp serve --config /opt/production/gulp.custom.50.122.js
  */
 try {
-  var configFilePath = './gulp.config.js';
-  if (args.config && fs.statSync(args.config).isFile()){
-    configFilePath = args.config;
+  var configDefaultPath = './gulp.config.js',
+  configCustomPath = args.config || './gulp.custom.js',
+  drexlerCustoms = {};
+
+  try {
+    if (fs.statSync(configCustomPath).isFile()){
+      drexlerCustoms = require(configCustomPath)();
+    }
+  }catch (e){
+    log('Not founded custom configuration ' + gutil.colors.bgCyan(configCustomPath));
+    log('If you want to extend configuration options please add ' + gutil.colors.bold('gulp.custom.js'));
   }
-  drexlerConfig = require(configFilePath)();
+
+  drexlerConfig = lodash.extend(require(configDefaultPath)(), drexlerCustoms);
+
   if (!drexlerConfig.path){
     log('In current config file ' + gutil.colors.bgCyan(configFilePath));
     log('Can not find ' + gutil.colors.bold('config.path') + ' property');
@@ -42,11 +51,9 @@ try {
   }
 }catch (e){
   log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
-  log(gutil.colors.underline('HOW-TO'));
-  log('Copy gulp.config-sample.js to ' + gutil.colors.bgCyan('gulp.config.js'));
-  log(gutil.colors.bold('cp gulp-config-sample.js gulp.config.js'));
   log(gutil.colors.red('Exception'));
   console.log(e);
+
   process.exit();
 }
 
