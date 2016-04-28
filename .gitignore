@@ -9,3 +9,4 @@ plugins/
 .tmp/
 .idea/
 gulp.custom.js
+www/*
