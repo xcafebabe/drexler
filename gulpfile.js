@@ -20,20 +20,29 @@ var sequence = require('run-sequence'),
     file = require('gulp-file'),
     args = require('yargs').argv,
     fs = require('fs'),
+    lodash = require('lodash'),
     drexlerConfig;
 
 /**
  * yargs variables can be passed in to alter the behavior, when present.
- * Example: gulp serve-dev
- *
- * --config  : gulp.config.js location in filesystem
+ * i.e.: gulp serve --config /opt/production/gulp.custom.50.122.js
  */
 try {
-  var configFilePath = './gulp.config.js';
-  if (args.config && fs.statSync(args.config).isFile()){
-    configFilePath = args.config;
+  var configDefaultPath = './gulp.config.js',
+  configCustomPath = args.config || './gulp.custom.js',
+  drexlerCustoms = {};
+
+  try {
+    if (fs.statSync(configCustomPath).isFile()){
+      drexlerCustoms = require(configCustomPath)();
+    }
+  }catch (e){
+    log('Not founded custom configuration ' + gutil.colors.bgCyan(configCustomPath));
+    log('If you want to extend configuration options please add ' + gutil.colors.bold('gulp.custom.js'));
   }
-  drexlerConfig = require(configFilePath)();
+
+  drexlerConfig = lodash.extend(require(configDefaultPath)(), drexlerCustoms);
+
   if (!drexlerConfig.path){
     log('In current config file ' + gutil.colors.bgCyan(configFilePath));
     log('Can not find ' + gutil.colors.bold('config.path') + ' property');
@@ -41,12 +50,10 @@ try {
     process.exit();
   }
 }catch (e){
-  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
-  log(gutil.colors.underline('HOW-TO'));
-  log('Copy gulp.config-sample.js to ' + gutil.colors.bgCyan('gulp.config.js'));
-  log(gutil.colors.bold('cp gulp-config-sample.js gulp.config.js'));
   log(gutil.colors.red('Exception'));
+  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
   console.log(e);
+
   process.exit();
 }
 
@@ -177,7 +184,7 @@ gulp.task('start-ionic-server', function(){
 
 //ionic-build task overloaded
 gulp.task('build', function(){
-  var script = [].concat(drexlerConfig.scripts.src, drexlerConfig.views.dest + drexlerConfig.views.filename),
+  var script = [].concat(drexlerConfig.scripts.buildsrc, drexlerConfig.views.dest + drexlerConfig.views.filename),
     local = script.concat(drexlerConfig.css.src),
     vendor =  mainBowerFiles(),
     paths = vendor.concat(local);
@@ -214,7 +221,8 @@ gulp.task('browserSync', function() {
       routes: {
         '/vendors': 'vendors',
         '/content': 'src/client/content',
-        '/app' : 'src/client/app'
+        '/app' : 'src/client/app',
+        '/src/mock-cordova' : 'src/mock-cordova'
       }
     },
   });
@@ -235,32 +243,10 @@ gulp.task('ionic-serve', function(){
 
 // gulp clean temp folders
 gulp.task('clean', function () {
-  sequence('delete', 'fillwww');
-});
-
-gulp.task('delete', function () {
-
-  return del(['.tmp', 'www/**/*']);
-});
-
-gulp.task('fillwww', function () {
-  var str = "<!DOCTYPE html>\n"           +
-            "<html lang='en'>\n"          +
-            " <head>\n"                   +
-            "  <meta charset='UTF-8'>\n"  +
-            "  <title></title>\n"         +
-            " </head>\n"                  +
-            " <body>\n"                   +
-            " "                           +
-            " </body>\n"                  +
-            "</html>\n";
-
-
-  return file('index.html', str).pipe(gulp.dest('www'));
+  return del(['.tmp','www/**/*']);
 });
 
 // SOME INTERNAL FUNCTIONS
-
 /**
  * Log a message or series of messages using chalk's blue color.
  * Can pass in a string, object or array.

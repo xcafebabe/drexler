@@ -1,4 +1,12 @@
 (function(){
   'use strict';
-  angular.module('drexler.core',['ngStorage']);
+  angular.module('drexler.core',[
+
+    'ionic',
+    'angular-logger',
+    'ngCordova',
+    'gettext',
+    'ngStorage'
+
+  ]);
 })();

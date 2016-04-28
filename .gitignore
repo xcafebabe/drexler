@@ -9,7 +9,5 @@ plugins/
 .tmp/
 www/
 www/index.html
-gulp.config.js
 .idea/
-
-
+gulp.custom.js
