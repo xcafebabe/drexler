@@ -12,6 +12,4 @@
       //Application Features Modules
       'drexler.tabs'
     ])
-
-
 })();
