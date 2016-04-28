@@ -50,8 +50,8 @@ try {
     process.exit();
   }
 }catch (e){
-  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
   log(gutil.colors.red('Exception'));
+  log('Please provide ' + gutil.colors.bgCyan('gulp.config.js') + ' file');
   console.log(e);
 
   process.exit();
@@ -243,32 +243,10 @@ gulp.task('ionic-serve', function(){
 
 // gulp clean temp folders
 gulp.task('clean', function () {
-  sequence('delete', 'fillwww');
-});
-
-gulp.task('delete', function () {
-
-  return del(['.tmp', 'www/**/*']);
-});
-
-gulp.task('fillwww', function () {
-  var str = "<!DOCTYPE html>\n"           +
-            "<html lang='en'>\n"          +
-            " <head>\n"                   +
-            "  <meta charset='UTF-8'>\n"  +
-            "  <title></title>\n"         +
-            " </head>\n"                  +
-            " <body>\n"                   +
-            " "                           +
-            " </body>\n"                  +
-            "</html>\n";
-
-
-  return file('index.html', str).pipe(gulp.dest('www'));
+  return del(['.tmp','www/**/*']);
 });
 
 // SOME INTERNAL FUNCTIONS
-
 /**
  * Log a message or series of messages using chalk's blue color.
  * Can pass in a string, object or array.
