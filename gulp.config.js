@@ -15,7 +15,7 @@ module.exports = function(){
       'filename' : 'templates.js'
     },
     'scripts': {
-      'src': ['./src/client/app/app.module.js', './src/client/app/app.config.js',  './src/mock-cordova/mock-cordava.module.js', './src/mock-cordova/mocks/*.js', './src/client/app/**/*.js'],
+      'src': ["./src/client/app/core/**/*.js", "./.tmp/templates.js", './src/mock-cordova/mock-cordava.module.js', './src/mock-cordova/mocks/*.js', './src/client/app/**/*.js', './src/client/app/app.module.js'],
       'buildsrc': ['./src/client/app/core/**/*.js', './.tmp/templates.js', './src/client/app/app.module.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
       'dest': ''
     },
