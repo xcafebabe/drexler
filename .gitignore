@@ -7,7 +7,5 @@ platforms/
 plugins/
 .idea/
 .tmp/
-www/
-www/index.html
 .idea/
 gulp.custom.js
