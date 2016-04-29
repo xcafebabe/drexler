@@ -14,7 +14,16 @@
     // Get local Variable
     this.get = function (key) {
       return $localStorage[key];
-
     };
+
+    this.resetAll = function (){
+      $localStorage.$reset();
+    };
+
+    this.reset = function (key) {
+      $localStorage.$reset({
+        key: null
+      });
+    }
   }
 })();
