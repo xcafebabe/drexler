@@ -6,6 +6,7 @@ var sequence = require('run-sequence'),
     useref = require('gulp-useref'),
     uglify = require('gulp-uglify'),
     gulpIf = require('gulp-if'),
+    watch = require('gulp-watch'),
     cssnano = require('gulp-cssnano'),
     templateCache = require('gulp-angular-templatecache'),
     exec = require('child_process').exec,
@@ -231,9 +232,9 @@ gulp.task('browserSync', function() {
 // serve all the required files for src
 gulp.task('serve', function(){
   sequence('browserSync', 'sass', 'inject');
-  gulp.watch(drexlerConfig.views.src, browserSync.reload);
-  gulp.watch(drexlerConfig.scripts.src, browserSync.reload);
-  gulp.watch(drexlerConfig.css.src, browserSync.reload);
+  watch(drexlerConfig.views.src,browserSync.reload);
+  watch("./src/**/*.js", function(){sequence('inject',browserSync.reload)});
+  watch(drexlerConfig.css.src, function(){sequence('inject',browserSync.reload)});
 });
 
 // build and serve files in www

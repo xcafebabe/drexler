@@ -68,6 +68,7 @@
   ],
   "dependencies": {
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0"
+    "grunt-cli": "^1.2.0",
+    "gulp-watch": "^4.3.5"
   }
 }

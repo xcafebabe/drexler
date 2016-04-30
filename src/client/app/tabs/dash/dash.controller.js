@@ -10,7 +10,7 @@
     $cordovaGeolocation.getCurrentPosition().then(function (value) {
       console.log("Geolocation Test:",value);
     },function (err) {
-      console.log(err);
+      //console.log(err);
     });
 
 
