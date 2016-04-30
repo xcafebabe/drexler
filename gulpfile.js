@@ -65,12 +65,21 @@ gulp.task('help', require('gulp-task-listing'));
 //Default Task
 gulp.task('default', ['help']);
 
+// serve all the required files for src
+gulp.task('serve', function(){
+  sequence('sass', 'inject','browserSync');
+  watch(drexlerConfig.views.src,browserSync.reload);
+  watch(drexlerConfig.scss.src, function(){sequence('sass',browserSync.reload);});
+  watch(drexlerConfig.scripts.src, function(){sequence('inject',browserSync.reload);});
+});
+
 // injects links to index html
 gulp.task('inject', function () {
-  var script = drexlerConfig.scripts.src,
-      local = script.concat(drexlerConfig.css.src),
-      vendor =  mainBowerFiles(['**/*.js', '**/*.css']),
-      paths = vendor.concat(local);
+  var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.dest + '**/*.css']),
+      vendors =  mainBowerFiles(['**/*.js', '**/*.css']),
+      paths = vendors.concat(assets);
+
+  console.log('paths', paths);
 
   return gulp.src(drexlerConfig.index.src)
     .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: drexlerConfig.path.dest}))
@@ -82,6 +91,22 @@ gulp.task('sass', function(){
   return gulp.src(drexlerConfig.scss.src)
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
     .pipe(gulp.dest(drexlerConfig.scss.dest));
+});
+
+// starts a server for src
+gulp.task('browserSync', function() {
+  browserSync.init({
+    server: {
+      baseDir: [drexlerConfig.path.temp],
+      routes: {
+        '/vendors': 'vendors',
+        '/content': 'src/client/content',
+        '/app' : 'src/client/app',
+        '/src/mock-cordova' : 'src/mock-cordova', //remove this crap from here
+        '/.tmp' : '.tmp'
+      }
+    },
+  });
 });
 
 // minify images
@@ -212,29 +237,6 @@ gulp.task('move-fonts', function(){
   // preserving the folder structure
   gulp.src(['./src/client/content/fonts/**/*'])
     .pipe(gulp.dest('www/fonts/'));
-});
-
-// starts a server for src
-gulp.task('browserSync', function() {
-  browserSync.init({
-    server: {
-      baseDir: [drexlerConfig.path.temp],
-      routes: {
-        '/vendors': 'vendors',
-        '/content': 'src/client/content',
-        '/app' : 'src/client/app',
-        '/src/mock-cordova' : 'src/mock-cordova'
-      }
-    },
-  });
-});
-
-// serve all the required files for src
-gulp.task('serve', function(){
-  sequence('browserSync', 'sass', 'inject');
-  watch(drexlerConfig.views.src,browserSync.reload);
-  watch("./src/**/*.js", function(){sequence('inject',browserSync.reload)});
-  watch(drexlerConfig.css.src, function(){sequence('inject',browserSync.reload)});
 });
 
 // build and serve files in www
