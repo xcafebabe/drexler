@@ -1,0 +1,124 @@
+<ion-side-menus>
+  <!-- Left menu -->
+  <ion-side-menu side="left">
+
+    <ion-content>
+      <ion-list>
+
+        <ion-item>
+          Settings
+        </ion-item>
+        <ion-item>
+          Share app
+        </ion-item>
+        <ion-item>
+          About app
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+
+  </ion-side-menu>
+
+  <ion-side-menu side="right">
+
+    <ion-content>
+      <ion-list>
+
+        <ion-item ng-repeat="i in vm.exampleArray track by $index">
+          item
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+
+  </ion-side-menu>
+
+  <ion-side-menu-content>
+
+    <!-- ngMaterial content -->
+    <md-toolbar class="md-warn">
+      <div class="md-toolbar-tools">
+        Example of Tab Scrolling issue
+      </div>
+    </md-toolbar>
+
+    <!-- ngMaterial sideNav -->
+    <!-- <div layout="row" ng-controller="sideNavCtrl">
+      <md-sidenav md-component-id="left" md-is-open="isSidenavOpen" class="md-sidenav-left">
+        <md-list>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text" md-ink-ripple>
+              <h3>Settings</h3>
+              <p>description</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>Share App</h3>
+              <p>description</p>
+            </div>
+          </md-list-item>
+          <md-list-item class="md-2-line">
+            <div class="md-list-item-text">
+              <h3>About App</h3>
+              <p>description</p>
+            </div>
+          </md-list-item>
+        </md-list>
+
+
+      </md-sidenav>
+      <md-content>
+        <md-button ng-click="openLeftMenu()">
+          ngMaterial Side Nav
+        </md-button>
+      </md-content>
+    </div> -->
+    <!-- ngMaterial tabs -->
+    <div class="md-whiteframe-z1" layout-margin layout="column">
+
+      <md-tabs md-selected="selectedIndex">
+
+        <md-tab ui-sref="tabMaterial.tab1">
+          <md-tab-label>
+            tab 1
+          </md-tab-label>
+
+          <md-tab-body>
+
+            <ui-view></ui-view>
+
+          </md-tab-body>
+
+        </md-tab>
+        <md-tab md-on-select="onTabSelected(tab)" md-on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" ui-sref="tabMaterial.tab2">
+          <md-tab-label>
+            tab 2
+          </md-tab-label>
+
+          <md-tab-body>
+
+            <ui-view></ui-view>
+
+          </md-tab-body>
+
+        </md-tab>
+        <md-tab md-on-select="onTabSelected(tab)" md-on-deselect="announceDeselected(tab)" ng-disabled="tab.disabled" ui-sref="tabMaterial.tab3">
+          <md-tab-label>
+            tab 3
+          </md-tab-label>
+
+          <md-tab-body>
+
+            <ui-view></ui-view>
+
+          </md-tab-body>
+
+        </md-tab>
+      </md-tabs>
+
+    </div>
+  </ion-side-menu-content>
+
+</ion-side-menus>
