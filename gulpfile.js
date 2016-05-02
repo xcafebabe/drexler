@@ -1,3 +1,4 @@
+'use strict';
 var sequence = require('run-sequence'),
     gulp = require('gulp'),
     inject = require('gulp-inject'),
@@ -18,7 +19,6 @@ var sequence = require('run-sequence'),
     browserSync = require('browser-sync').create(),
     gutil = require('gulp-util'),
     del = require('del'),
-    file = require('gulp-file'),
     args = require('yargs').argv,
     fs = require('fs'),
     lodash = require('lodash'),
@@ -45,9 +45,9 @@ try {
   drexlerConfig = lodash.extend(require(configDefaultPath)(), drexlerCustoms);
 
   if (!drexlerConfig.path){
-    log('In current config file ' + gutil.colors.bgCyan(configFilePath));
+    log('In current config file ' + gutil.colors.bgCyan(configDefaultPath));
     log('Can not find ' + gutil.colors.bold('config.path') + ' property');
-    log('Please provide a valid ' + gutil.colors.bold(configFilePath) + ' file');
+    log('Please provide a valid ' + gutil.colors.bold(configDefaultPath) + ' file');
     process.exit();
   }
 }catch (e){
@@ -62,10 +62,15 @@ try {
  * List the available gulp tasks
  */
 gulp.task('help', require('gulp-task-listing'));
-//Default Task
+
+/**
+* Default Task
+*/
 gulp.task('default', ['help']);
 
-// serve all the required files for src
+/**
+* Serve all the required files in a browser
+*/
 gulp.task('serve', function(){
   sequence('sass', 'inject','browserSync');
   watch(drexlerConfig.views.src,browserSync.reload);
@@ -73,27 +78,32 @@ gulp.task('serve', function(){
   watch(drexlerConfig.scripts.src, function(){sequence('inject',browserSync.reload);});
 });
 
-// injects links to index html
+/**
+* Injects links to index html
+*/
 gulp.task('inject', function () {
   var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.dest + '**/*.css']),
-      vendors =  mainBowerFiles(['**/*.js', '**/*.css']),
+      vendors =  mainBowerFiles(),
       paths = vendors.concat(assets);
-
-  console.log('paths', paths);
 
   return gulp.src(drexlerConfig.index.src)
     .pipe(inject(gulp.src(paths, {read: false}), {ignorePath: drexlerConfig.path.dest}))
     .pipe(gulp.dest(drexlerConfig.path.temp));
 });
 
-// converts sass to css
+/**
+*  Converts sass to css
+*  @return {Stream}
+*/
 gulp.task('sass', function(){
   return gulp.src(drexlerConfig.scss.src)
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
     .pipe(gulp.dest(drexlerConfig.scss.dest));
 });
 
-// starts a server for src
+/**
+* Starts a server for `gulp serve` task
+*/
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
@@ -109,14 +119,19 @@ gulp.task('browserSync', function() {
   });
 });
 
-// minify images
+/**
+/**
+* Minify images
+*/
 gulp.task('images', function(){
   return gulp.src(drexlerConfig.images.src)
     .pipe(imagemin())
     .pipe(gulp.dest(drexlerConfig.images.dest));
 });
 
-// gulp jshint
+/**
+* JsHint mode used during build time
+*/
 gulp.task('lint', function() {
   return gulp.src(drexlerConfig.scripts.src)
     .pipe(jshint())
@@ -124,7 +139,9 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('fail'));
 });
 
-// Karma test
+/**
+* Karma Test Environments
+*/
 gulp.task('test', function(done) {
   var test = drexlerConfig.test.scripts,
     local = drexlerConfig.scripts.src.concat(test),
@@ -139,6 +156,27 @@ gulp.task('test', function(done) {
   }, function() {
     done();
   });
+});
+
+
+//
+gulp.task('build', function(){
+  var script = [].concat(drexlerConfig.scripts.buildsrc, drexlerConfig.views.dest + drexlerConfig.views.filename),
+    vendor =  mainBowerFiles(),
+    paths = vendor.concat(script);
+  return gulp.src(drexlerConfig.index.src)
+    .pipe(inject(gulp.src(paths, {read: false})))
+    .pipe(gulp.dest(drexlerConfig.dist))
+    .pipe(useref({ searchPath: ['.'] }))
+    .pipe(gulpIf('*.js', ngAnnotate()))
+    .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulpIf('*.css', cssnano()))
+    .pipe(gulp.dest(drexlerConfig.dist));
+});
+
+// app packaging into www. Ready to use by ionic cli.
+gulp.task('ionic-build', function(){
+  sequence('move-contents', 'images', 'sass', 'templatecache', 'replace', 'build');
 });
 
 /**
@@ -158,6 +196,39 @@ gulp.task('templatecache', function () {
     }))
     .pipe(gulp.dest(drexlerConfig.views.dest));
 });
+
+
+// runs ionic serve
+gulp.task('start-ionic-server', function(){
+  exec('ionic serve', function (err, stdout, stderr) {});
+});
+
+// build and serve files in www
+gulp.task('ionic-serve', function(){
+  sequence('move-fonts', 'move-contents', 'images', 'sass', 'templatecache', 'replace', 'build', 'start-ionic-server');
+});
+
+// gulp clean temp folders
+gulp.task('clean', function () {
+  return del(['.tmp','www/**/*']);
+});
+
+// SOME INTERNAL FUNCTIONS
+/**
+ * Log a message or series of messages using chalk's blue color.
+ * Can pass in a string, object or array.
+ */
+function log(msg) {
+  if (typeof(msg) === 'object') {
+    for (var item in msg) {
+      if (msg.hasOwnProperty(item)) {
+        gutil.log(gutil.colors.white(msg[item]));
+      }
+    }
+  } else {
+    gutil.log(gutil.colors.white(msg));
+  }
+}
 
 // runs ionic serve
 gulp.task('replace', function(){
@@ -198,31 +269,6 @@ gulp.task('replace', function(){
   }
 });
 
-// build files from src to www
-gulp.task('ionic-build', function(){
-  sequence('move-contents', 'images', 'sass', 'templatecache', 'replace', 'build');
-});
-
-// runs ionic serve
-gulp.task('start-ionic-server', function(){
-  exec('ionic serve', function (err, stdout, stderr) {});
-});
-
-//ionic-build task overloaded
-gulp.task('build', function(){
-  var script = [].concat(drexlerConfig.scripts.buildsrc, drexlerConfig.views.dest + drexlerConfig.views.filename),
-    local = script.concat(drexlerConfig.css.src),
-    vendor =  mainBowerFiles(),
-    paths = vendor.concat(local);
-  return gulp.src(drexlerConfig.index.src)
-    .pipe(inject(gulp.src(paths, {read: false})))
-    .pipe(gulp.dest(drexlerConfig.dist))
-    .pipe(useref({ searchPath: ['.'] }))
-    .pipe(gulpIf('*.js', ngAnnotate()))
-    .pipe(gulpIf('*.js', uglify()))
-    .pipe(gulpIf('*.css', cssnano()))
-    .pipe(gulp.dest(drexlerConfig.dist));
-});
 
 gulp.task('move-contents', function(){
   // the base option sets the relative root for the set of files,
@@ -238,30 +284,3 @@ gulp.task('move-fonts', function(){
   gulp.src(['./src/client/content/fonts/**/*'])
     .pipe(gulp.dest('www/fonts/'));
 });
-
-// build and serve files in www
-gulp.task('ionic-serve', function(){
-  sequence('move-fonts', 'move-contents', 'images', 'sass', 'templatecache', 'replace', 'build', 'start-ionic-server');
-});
-
-// gulp clean temp folders
-gulp.task('clean', function () {
-  return del(['.tmp','www/**/*']);
-});
-
-// SOME INTERNAL FUNCTIONS
-/**
- * Log a message or series of messages using chalk's blue color.
- * Can pass in a string, object or array.
- */
-function log(msg) {
-  if (typeof(msg) === 'object') {
-    for (var item in msg) {
-      if (msg.hasOwnProperty(item)) {
-        gutil.log(gutil.colors.white(msg[item]));
-      }
-    }
-  } else {
-    gutil.log(gutil.colors.white(msg));
-  }
-}

@@ -10,7 +10,7 @@ module.exports = function(){
       'dest': ''
     },
     'views': {
-      'src': ['./src/client/app/**/*html'],
+      'src': ['./src/client/app/**/*.html'],
       'dest': './.tmp/',
       'filename' : 'templates.js'
     },
