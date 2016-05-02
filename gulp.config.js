@@ -2,7 +2,7 @@ module.exports = function(){
   var config = {
     'path': {
       'src': './src/client',
-      'temp': '.tmp/',
+      'temp': './.tmp/',
       'dest': 'src/client/'
     },
     'index': {
@@ -19,13 +19,9 @@ module.exports = function(){
       'buildsrc': ['./src/client/app/core/**/*.js', './.tmp/templates.js', './src/client/app/app.module.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
       'dest': ''
     },
-    'css': {
-      'src': ['./src/client/css/**/*.css'],
-      'dest': ''
-    },
     'scss': {
       'src': ['./src/client/content/scss/**/*.scss'],
-      'dest': '.tmp/css'
+      'dest': './.tmp/css/'
     },
     'images': {
       'src': ['./src/client/content/images/**/*.+(png|jpg|gif|svg)'],
