@@ -4,10 +4,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: src/client/app/language/tab-lang.html:19
+#: src/client/app/tabs/language/tab-lang.html:20
 msgid "Hello World"
 msgstr ""
 
-#: src/client/app/language/tab-lang.html:20
+#: src/client/app/tabs/language/tab-lang.html:21
 msgid "HI"
+msgstr ""
+
+#: src/client/app/tabs/language/tab-lang.html:22
+msgid "Test"
 msgstr ""

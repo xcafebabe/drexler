@@ -5,9 +5,10 @@
       //Application Base Modules
       'drexler.core',
       'drexler.common',
+      'drexler.translation',
 
       //ngCordova Mock for browser You can remove the below module when building your app
-      'drexler.mockCordova',
+      /*'drexler.mockCordova',*/
 
       //Application Features Modules
       'drexler.tabs'

@@ -77,13 +77,13 @@
   function run($ionicPlatform, gettextCatalog, drexlerStorage, $cordovaGlobalization) {
 
     //This is just an example for agnular get text translation , in futre we will move this in a separate module :A
-    gettextCatalog.setStrings('es-ES', {"Hello World":"Hola Mundo"});
+    //gettextCatalog.setStrings('es-ES', {"Hello World":"Hola Mundo"});
 
 
 
     $ionicPlatform.ready(function() {
 
-      
+
 
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)

@@ -8,9 +8,9 @@
  **/
 ngCordovaMocks.factory('$cordovaDeviceMotion', ['$interval', '$q', function ($interval, $q) {
   var currentAcceleration = {
-    x:1,
-    y:2,
-    z:3
+    x:4,
+    y:5,
+    z:6
   };
   var throwsError = false;
   var positions = [];

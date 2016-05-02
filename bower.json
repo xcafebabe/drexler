@@ -17,5 +17,8 @@
         "./dist/angular-logger.min.js"
       ]
     }
+  },
+  "devDependencies": {
+    "ionic-platform-web-client": "^0.7.1"
   }
 }

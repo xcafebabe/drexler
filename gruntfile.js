@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     nggettext_compile: {
       all: {
         files: {
-          'src/client/app/core/core.translations.js': ['po/*.po']
+          'src/client/app/translation/translation.run.js': ['po/*.po']
         }
       }
     }
@@ -21,6 +21,6 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-angular-gettext');
 
-  grunt.registerTask('default', ['nggettext_extract']);
+  grunt.registerTask('extract', ['nggettext_extract']);
   grunt.registerTask('compile', ['nggettext_compile']);
 };
