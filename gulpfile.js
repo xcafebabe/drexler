@@ -72,10 +72,11 @@ gulp.task('default', ['help']);
 * Serve all the required files in a browser
 */
 gulp.task('serve', function(){
-  sequence('sass', 'inject','browserSync');
+  sequence('sass', 'inject', 'fonts', 'browserSync');
   watch(drexlerConfig.views.src,browserSync.reload);
-  watch(drexlerConfig.scss.src, function(){sequence('sass',browserSync.reload);});
-  watch(drexlerConfig.scripts.src, function(){sequence('inject',browserSync.reload);});
+  watch(drexlerConfig.scss.src, function(){sequence('sass', browserSync.reload);});
+  watch(drexlerConfig.scripts.src, function(){sequence('inject', browserSync.reload);});
+  watch(drexlerConfig.fonts.src, function(){sequence('fonts', browserSync.reload);});
 });
 
 /**
@@ -137,6 +138,17 @@ gulp.task('lint', function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
+});
+
+/**
+ * Copy fonts
+ * @return {Stream}
+ */
+gulp.task('fonts', function() {
+  log('Copying fonts');
+  return gulp
+    .src(drexlerConfig.fonts.src)
+    .pipe(gulp.dest(drexlerConfig.fonts.dest));
 });
 
 /**

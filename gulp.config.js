@@ -15,13 +15,22 @@ module.exports = function(){
       'filename' : 'templates.js'
     },
     'scripts': {
-      'src': ["./src/client/app/core/**/*.js", "./.tmp/templates.js", './src/mock-cordova/mock-cordava.module.js', './src/mock-cordova/mocks/*.js', './src/client/app/**/*.js', './src/client/app/app.module.js'],
+      'src': [
+        './.tmp/templates.js',
+        './src/client/app/**/*.module.js',
+        './src/mock-cordova/mock-cordava.module.js',
+        './src/mock-cordova/mocks/*.js',
+        './src/client/app/**/*.js'],
       'buildsrc': ['./src/client/app/core/**/*.js', './.tmp/templates.js', './src/client/app/app.module.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
       'dest': ''
     },
     'scss': {
       'src': ['./src/client/content/scss/**/*.scss'],
       'dest': './.tmp/css/'
+    },
+    'fonts' : {
+      'src': ['./vendors/ionic/fonts/*'],
+      'dest': './.tmp/fonts/'
     },
     'images': {
       'src': ['./src/client/content/images/**/*.+(png|jpg|gif|svg)'],
