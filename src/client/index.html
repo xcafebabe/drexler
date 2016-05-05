@@ -2,36 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-  <!--build:css css/styles.min.css-->
-  <!-- inject:css -->
-
-  <!-- endinject -->
-  <!--endbuild-->
+    <title>Drexler</title>
 </head>
-<body  ng-app="drexler">
-
-  <!--
-  The nav bar that will be updated as we navigate between views.
-  -->
-  <ion-nav-bar class="bar-stable">
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-  </ion-nav-bar>
-  <!--
-    The views will be rendered in the <ion-nav-view> directive below
-    Templates are in the /templates folder (but you could also
-    have templates inline in this html file if you'd like).
-  -->
-  <ion-nav-view></ion-nav-view>
-
-
-  <script src="cordova.js"></script>
-  <!--build:js js/main.min.js -->
-  <!-- inject:js -->
-
-  <!-- endinject -->
-  <!-- endbuild -->
-
+<body>
+  <ul>
+    <li>
+      Ionic Sample - <a href="index-ionic.html">Link</a>
+    </li>
+    <li>
+      Material Sample - <a href="index-material.html">Link</a>
+    </li>
+  </ul>
+  <ui-view></ui-view>
 </body>
 </html>

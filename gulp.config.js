@@ -1,4 +1,5 @@
 module.exports = function(){
+  'use strict';
   var config = {
     'path': {
       'src': './src/client',
@@ -6,7 +7,7 @@ module.exports = function(){
       'dest': 'src/client/'
     },
     'index': {
-      'src': './src/client/index.html',
+      'src': ['./src/client/index*.html'],
       'dest': ''
     },
     'views': {
