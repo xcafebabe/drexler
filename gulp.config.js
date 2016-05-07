@@ -30,7 +30,10 @@ module.exports = function(){
       'dest': './.tmp/css/'
     },
     'fonts' : {
-      'src': ['./vendors/ionic/fonts/*'],
+      'src': [
+        './vendors/ionic/fonts/*',
+        './vendors/material-design-icons/iconfont/*.+(eot|svg|woff|woff2|ttf)'
+      ],
       'dest': './.tmp/fonts/'
     },
     'images': {

@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Drexler</title>
+  <title>Drexler - Starter App</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <!--build:css css/styles.min.css-->
+  <!-- inject:css -->
+
+  <!-- endinject -->
+  <!--endbuild-->
 </head>
-<body>
-  <ul>
-    <li>
-      Ionic Sample - <a href="index-ionic.html">Link</a>
-    </li>
-    <li>
-      Material Sample - <a href="index-material.html">Link</a>
-    </li>
-  </ul>
-  <ui-view></ui-view>
+
+<body ng-app="drexler" layout="column" ng-cloak>
+
+  <md-toolbar layout="row">
+    <md-button class="menu" hide-gt-sm aria-label="Show User List">
+      <md-icon>menu</md-icon>
+    </md-button>
+    <h1>Drexler - Starter App</h1>
+  </md-toolbar>
+
+  <div flex layout="row">
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+      <md-toolbar class="md-tall md-hue-2">
+        <span flex></span>
+        <div layout="column" class="md-toolbar-tools-bottom inset">
+          <span>What??</span>
+          <div>Firstname Lastname</div>
+          <div>email@domainname.com</div>
+        </div>
+      </md-toolbar>
+      <md-list>
+        <md-item>
+          <a>
+            <md-item-content md-ink-ripple layout="row" layout-align="start center">
+              <div class="inset">
+                <md-icon>dashboard</md-icon>
+              </div>
+              <div class="inset">Menu 1
+              </div>
+            </md-item-content>
+          </a>
+        </md-item>
+        <md-divider></md-divider>
+        <md-subheader>Management</md-subheader>
+        <md-item>
+          <a>
+            <md-item-content md-ink-ripple layout="row" layout-align="start center">
+              <div class="inset">
+                <md-icon>group</md-icon>
+              </div>
+              <div class="inset">Menu 2
+              </div>
+            </md-item-content>
+          </a>
+        </md-item>
+      </md-list>
+    </md-sidenav>
+
+    <md-content flex id="content">
+      <md-icon>person</md-icon>
+      <h2>Hola Mundo!</h2>
+      <p>Livecoding.tv</p>
+
+      <md-button class="share" md-no-ink aria-label="Share">
+        <md-icon>share</md-icon>
+      </md-button>
+    </md-content>
+
+  </div>
+
+  <!--build:js js/main.min.js -->
+  <!-- inject:js -->
+
+  <!-- endinject -->
+  <!-- endbuild -->
 </body>
+
 </html>

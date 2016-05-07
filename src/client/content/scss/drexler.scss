@@ -1,3 +1,11 @@
+// Ionic Defaults
+// Include Ionic scss if you plan to use it and customize it.
+// And in bower.json change ionic dependency to devDependencies
+
+// By default gulp is using last ionic css as a bower dependency.
+// If you want to remove completely ionic in bower.json
+// change ionic dependency to devDependencies
+//
 /*
 To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
@@ -18,6 +26,14 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 */
-// Include all of Ionic
-@import "vendors/ionic/scss/ionic";
+// @import "vendors/ionic/scss/ionic";
 
+// Icons
+@import "icons";
+
+/**
+ * Hide when Angular is not yet loaded and initialized
+ */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

@@ -20,7 +20,8 @@
     }
   },
   "devDependencies": {
-    "ionic-platform-web-client": "^0.7.1"
+    "ionic-platform-web-client": "^0.7.1",
+    "material-design-icons": "^2.2.3"
   },
   "resolutions": {
     "angular": "~1.5.5",
