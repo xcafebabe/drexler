@@ -321,15 +321,16 @@ gulp.task('fonts', function() {
 gulp.task('ngTemplateCache', function() {
   log('Creating template.js');
   return gulp.src(drexlerConfig.views.src)
-    .pipe(plug.minifyHtml({
-       empty: true
-     }))
+    .pipe(plug.htmlmin({
+      collapseWhitespace: true,
+      removeComments: true
+    }))
     .pipe(plug.angularTemplatecache(drexlerConfig.views.filename, {
       module: 'drexler.core',
       standalone: false,
       root: 'app/'
     }))
-    .pipe(gulp.dest(drexlerConfig.views.dest));
+    .pipe(gulp.dest(drexlerConfig.views.build));
 });
 
 // Build into www. Ready to use by ionic cli.

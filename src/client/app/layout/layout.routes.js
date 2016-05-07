@@ -8,7 +8,7 @@
       routerHelper.configureStates(getStates(),'/dashboard');
     }
 
-    ///////
+    ///////////
 
     function getStates(){
       return [
@@ -30,9 +30,6 @@
           state : 'drexler.dashboard',
           config : {
             url : '/dashboard',
-            params : {
-              abc : 'cdefddddd'
-            },
             views : {
               'content@' : {
                 templateUrl : 'app/layout/defaultContent.html'
