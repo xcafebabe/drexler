@@ -1,6 +1,7 @@
 module.exports = function(){
   'use strict';
   var config = {
+    'isBuild' : false,
     'path': {
       'src': './src/client',
       'temp': './.tmp/',
@@ -8,11 +9,10 @@ module.exports = function(){
     },
     'index': {
       'src': ['./src/client/index*.html'],
-      'dest': ''
     },
     'views': {
       'src': ['./src/client/app/**/*.html'],
-      'dest': './.tmp/',
+      'build': './.tmp/',
       'filename' : 'templates.js'
     },
     'scripts': {
@@ -22,22 +22,34 @@ module.exports = function(){
         './src/client/app/**/*.run.js',
         './.tmp/templates.js',
         './src/client/app/**/*.js'],
-      'dest': ''
+    },
+    'vendors' : {
+      'js' : [
+        './vendors/**/*.js'
+      ],
+      'css' : [
+        './vendors/**/*.css'
+      ]
     },
     'scss': {
       'src': ['./src/client/content/scss/**/*.scss'],
-      'dest': './.tmp/css/'
+      'build': './.tmp/css/'
     },
     'fonts' : {
       'src': [
         './vendors/ionic/fonts/*',
         './vendors/material-design-icons/iconfont/*.+(eot|svg|woff|woff2|ttf)'
       ],
-      'dest': './.tmp/fonts/'
+      'build': './.tmp/fonts/'
     },
     'images': {
       'src': ['./src/client/content/images/**/*.+(png|jpg|gif|svg)'],
-      'dest': 'www/content/images/'
+      'build': 'www/images/'
+    },
+    'assets' : {
+      'src' : [
+        './src/client/content/images/**/*'
+      ]
     },
     'test': {
       'src': ['/karma.conf.js'],
@@ -47,9 +59,8 @@ module.exports = function(){
       },
       'scripts': ['./src/client/test/**/*.js'],
       'exclude': ['**/*.+(eot|svg|ttf|woff)'],
-      'dest': ''
     },
-    'dist': 'www',
+    'build': 'www',
     'stamps': [ //Only has sense during building time
       {
         'src': '.tmp/template.js', // support one string if there is only one file

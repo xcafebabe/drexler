@@ -10,8 +10,13 @@
   <meta name="description" content="Drexler Boilerplate Awesomeness">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
+  <!--build:css css/vendors.min.css-->
+  <!-- vendors:css -->
+  <!-- endinject -->
+  <!--endbuild-->
+
   <!--build:css css/styles.min.css-->
-  <!-- inject:css -->
+  <!-- app:css -->
   <!-- endinject -->
   <!--endbuild-->
 </head>
@@ -31,8 +36,13 @@
     <!-- End Dynamic Content -->
   </div>
 
-  <!--build:js js/main.min.js -->
-  <!-- inject:js -->
+  <!-- build:js js/vendor.min.js -->
+  <!-- vendors:js -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:js js/main.min.js -->
+  <!-- app:js -->
   <!-- endinject -->
   <!-- endbuild -->
 </body>
