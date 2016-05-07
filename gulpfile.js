@@ -110,11 +110,11 @@ gulp.task('browserSync', function() {
     server: {
       baseDir: [drexlerConfig.path.temp],
       routes: {
-        '/vendors': 'vendors',
-        '/content': 'src/client/content',
-        '/app' : 'src/client/app',
-        '/src/mock-cordova' : 'src/mock-cordova', //remove this crap from here
-        '/.tmp' : '.tmp'
+        '/vendors': './vendors',
+        '/content': './src/client/content',
+        '/app' : './src/client/app',
+        '/src/mock-cordova' : './src/mock-cordova', //remove this crap from here
+        '/.tmp' : './.tmp'
       }
     },
   });
