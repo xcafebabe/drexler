@@ -21,8 +21,6 @@ module.exports = function(){
         './src/client/app/**/*.module.js',
         './src/client/app/**/*.config.js',
         './src/client/app/**/*.run.js',
-        './src/mock-cordova/mock-cordava.module.js',
-        './src/mock-cordova/mocks/*.js',
         './src/client/app/**/*.js'],
       'dest': ''
     },

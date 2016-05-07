@@ -72,6 +72,7 @@ gulp.task('default', ['help']);
 * Serve all the required files in a browser
 */
 gulp.task('serve', function(){
+  addCordovaMocks();
   sequence('sass', 'inject', 'fonts', 'browserSync');
   watch(drexlerConfig.views.src,browserSync.reload);
   watch(drexlerConfig.scss.src, function(){sequence('sass', browserSync.reload);});
@@ -246,6 +247,14 @@ function log(msg) {
     gutil.log(gutil.colors.white(msg));
   }
 }
+
+function addCordovaMocks(){
+  if (drexlerConfig.scripts.src instanceof Array){
+    drexlerConfig.scripts.src.push('!./src/client/app/core/ng-cordova-mocks.js');
+    drexlerConfig.scripts.src.push('./vendors/ngCordova/dist/ng-cordova-mocks.js');
+  }
+}
+
 
 // runs ionic serve
 gulp.task('replace', function(){

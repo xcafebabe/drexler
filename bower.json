@@ -9,8 +9,7 @@
     "ngCordova": "^0.1.26-alpha",
     "angular-material": "~1.0.8",
     "angular-gettext": "^2.2.1",
-    "ngstorage": "^0.3.10",
-    "ngCordovaMocks": "ng-cordova-mocks#^0.7.0"
+    "ngstorage": "^0.3.10"
   },
   "overrides": {
     "angular-logger": {
