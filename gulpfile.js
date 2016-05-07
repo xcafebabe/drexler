@@ -50,7 +50,7 @@ try {
 /**
  * List the available gulp tasks
  */
-gulp.task('help', require('gulp-task-listing'));
+gulp.task('help', plug.taskListing);
 
 /**
  * Default Task
@@ -116,10 +116,34 @@ gulp.task('serve', function() {
 gulp.task('server', ['serve']);
 
 /**
- * List the available gulp tasks
+ *  Converts sass to css
+ *  @return {Stream}
  */
-gulp.task('help', plug.taskListing);
+gulp.task('sass', function() {
+  return gulp.src(drexlerConfig.scss.src)
+    .pipe(plug.sass().on('error', plug.sass.logError)) // Converts Sass to CSS with gulp-sass
+    .pipe(plug.autoprefixer('last 2 version', '> 5%'))
+    .pipe(gulp.dest(drexlerConfig.scss.build));
+});
 
+/**
+ * Copy fonts
+ * @return {Stream}
+ */
+gulp.task('fonts', function() {
+  log('Copying fonts');
+  return gulp
+    .src(drexlerConfig.fonts.src)
+    .pipe(gulp.dest(drexlerConfig.fonts.build));
+});
+
+// Just found this way to change destination folder between serve & build
+gulp.task('fonts-build', function() {
+  log('Copying fonts');
+  return gulp
+    .src(drexlerConfig.fonts.src)
+    .pipe(gulp.dest(drexlerConfig.build+'/fonts'));
+});
 
 /**
 * Injects required files into index html
@@ -132,144 +156,6 @@ gulp.task('inject', function () {
     .pipe(plug.inject(gulp.src(assets, {read: false}), {name: 'app', ignorePath: drexlerConfig.path.dest}))
     .pipe(plug.inject(gulp.src(vendors, {read: false}), {name: 'vendors',ignorePath: drexlerConfig.path.dest}))
     .pipe(gulp.dest(drexlerConfig.path.temp));
-});
-
-
-/**
- * Bundling the app's JavaScript
- * @return {Stream}
- */
-gulp.task('js', function() {
-  if (drexlerConfig.isBuild){
-    log('Bundling, minifying, and copying the app\'s JavaScript');
-    return gulp
-        .src(drexlerConfig.index.src)
-        // .pipe(plug.sourcemaps.init()) // get screwed up in the file rev process
-        .pipe(plug.concat('app.min.js'))
-        .pipe(plug.ngAnnotate({
-            add: true,
-            single_quotes: true
-        }))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.uglify({
-            mangle: true
-        }))
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        // .pipe(plug.sourcemaps.write('./'))
-        .pipe(gulp.dest(drexlerConfig.dist));
-
-  }
-});
-
-/**
- * Inject or Copy Vendor JavaScript
- * @return {Stream}
- */
-gulp.task('vendors', function() {
-  if (drexlerConfig.isBuild){
-    log('Bundling, minifying, and copying the Vendor JavaScript');
-    return gulp.src(drexlerConfig.vendors.js)
-        .pipe(plug.concat('vendor.min.js'))
-          .pipe(plug.bytediff.start())
-          .pipe(plug.uglify())
-          .pipe(plug.bytediff.stop(bytediffFormatter))
-          .pipe(gulp.dest(drexlerConfig.build));
-  }
-});
-
-// /**
-//  * Minify and bundle the CSS
-//  * @return {Stream}
-//  */
-// gulp.task('css', function() {
-//     log('Bundling, minifying, and copying the app\'s CSS');
-//
-//     return gulp.src(paths.css)
-//         .pipe(plug.concat('all.min.css')) // Before bytediff or after
-//         .pipe(plug.autoprefixer('last 2 version', '> 5%'))
-//         .pipe(plug.bytediff.start())
-//         .pipe(plug.minifyCss({}))
-//         .pipe(plug.bytediff.stop(bytediffFormatter))
-//         //        .pipe(plug.concat('all.min.css')) // Before bytediff or after
-//         .pipe(gulp.dest(paths.build + 'content'));
-// });
-
-// /**
-//  * Minify and bundle the Vendor CSS
-//  * @return {Stream}
-//  */
-// gulp.task('vendorcss', function() {
-//     log('Compressing, bundling, copying vendor CSS');
-//
-//     var vendorFilter = plug.filter(['**/*.css']);
-//
-//     return gulp.src(paths.vendorcss)
-//         .pipe(vendorFilter)
-//         .pipe(plug.concat('vendor.min.css'))
-//         .pipe(plug.bytediff.start())
-//         .pipe(plug.minifyCss({}))
-//         .pipe(plug.bytediff.stop(bytediffFormatter))
-//         .pipe(gulp.dest(paths.build + 'content'));
-// });
-
-
-/**
- * Inject all the files into the new index.html
- * rev, but no map
- * @return {Stream}
- */
-// gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function() {
-//     log('Rev\'ing files and building index.html');
-//
-//     var minified = paths.build + '**/*.min.*';
-//     var index = paths.client + 'index.html';
-//     var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-//     var indexFilter = plug.filter(['index.html']);
-//
-//     var stream = gulp
-//         // Write the revisioned files
-//         .src([].concat(minified, index)) // add all built min files and index.html
-//         .pipe(minFilter) // filter the stream to minified css and js
-//         .pipe(plug.rev()) // create files with rev's
-//         .pipe(gulp.dest(paths.build)) // write the rev files
-//         .pipe(minFilter.restore()) // remove filter, back to original stream
-//
-//     // inject the files into index.html
-//     .pipe(indexFilter) // filter to index.html
-//     .pipe(inject('content/vendor.min.css', 'inject-vendor'))
-//         .pipe(inject('content/all.min.css'))
-//         .pipe(inject('vendor.min.js', 'inject-vendor'))
-//         .pipe(inject('all.min.js'))
-//         .pipe(gulp.dest(paths.build)) // write the rev files
-//     .pipe(indexFilter.restore()) // remove filter, back to original stream
-//
-//     // replace the files referenced in index.html with the rev'd files
-//     .pipe(plug.revReplace()) // Substitute in new filenames
-//     .pipe(gulp.dest(paths.build)) // write the index.html file changes
-//     .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
-//     .pipe(gulp.dest(paths.build)); // write the manifest
-//
-//     function inject(path, name) {
-//         var pathGlob = paths.build + path;
-//         var options = {
-//             ignorePath: paths.build.substring(1),
-//             read: false
-//         };
-//         if (name) {
-//             options.name = name;
-//         }
-//         return plug.inject(gulp.src(pathGlob), options);
-//     }
-// });
-
-/**
- *  Converts sass to css
- *  @return {Stream}
- */
-gulp.task('sass', function() {
-  return gulp.src(drexlerConfig.scss.src)
-    .pipe(plug.sass().on('error', plug.sass.logError)) // Converts Sass to CSS with gulp-sass
-    .pipe(gulp.dest(drexlerConfig.scss.build));
 });
 
 /**
@@ -291,29 +177,6 @@ gulp.task('browserSync', function() {
   });
 });
 
-
-
-/**
- * JsHint mode used during build time
- */
-// gulp.task('lint', function() {
-//   return gulp.src(drexlerConfig.scripts.src)
-//     .pipe(jshint())
-//     .pipe(jshint.reporter('default'))
-//     .pipe(jshint.reporter('fail'));
-// });
-
-/**
- * Copy fonts
- * @return {Stream}
- */
-gulp.task('fonts', function() {
-  log('Copying fonts');
-  return gulp
-    .src(drexlerConfig.fonts.src)
-    .pipe(gulp.dest(drexlerConfig.fonts.build));
-});
-
 /**
  * Create templates cache useful for angular views
  * @return {Stream}
@@ -333,66 +196,39 @@ gulp.task('ngTemplateCache', function() {
     .pipe(gulp.dest(drexlerConfig.views.build));
 });
 
+/**
+* Bundling, uglifying, minifying Css, Html, Javascript.
+*/
 // Build into www. Ready to use by ionic cli.
-// gulp.task('build', ['clean', 'copy', 'images', 'sass', 'templatecache', 'replace'], function() {
-//   log('Packaging Drexler App');
-//   var jsAssets = drexlerConfig.scripts.src,
-//     cssAssets = drexlerConfig.scss.dest + '**/*.css',
-//     vendorJsAssets = mainBowerFiles('**/*.js'),
-//     vendorCssAssets = mainBowerFiles('**/*.css'),
-//     minified = '**/*.min.*';
-//
-//   // var index = paths.client + 'index.html';
-//   // var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-//   // var indexFilter = plug.filter(['index.html']);
-//
-//
-//   log('Bundling, minifying, and copying the app\'s JavaScript');
-//   var stream = gulp.src(jsAssets)
-//     .pipe(concat('drexler.min.js'))
-//     .pipe(ngAnnotate({
-//       add: true,
-//       single_quotes: true
-//     }))
-//     .pipe(bytediff.start())
-//     .pipe(uglify({
-//       mangle: true
-//     }))
-//     .pipe(bytediff.stop(bytediffFormatter))
-//     // .pipe(plug.sourcemaps.write('./'))
-//     .pipe(gulp.dest(drexlerConfig.path.temp + '/scripts'));
-//
-//     log('Bundling, minifying, and copying the Vendor JavaScript');
-//
-//     streamlp.src(paths.vendorjs)
-//         .pipe(plug.concat('vendor.min.js'))
-//         .pipe(plug.bytediff.start())
-//         .pipe(plug.uglify())
-//         .pipe(plug.bytediff.stop(bytediffFormatter))
-//         .pipe(gulp.dest(paths.build));
-//
-//
-//
-//
-//
-//
-//   return gulp.src(drexlerConfig.index.src)
-//     .pipe(inject(gulp.src(paths, {
-//       read: false
-//     })))
-//     .pipe(gulp.dest(drexlerConfig.dist))
-//     .pipe(useref({
-//       searchPath: ['.']
-//     }))
-//     .pipe(gulpIf('*.js', ngAnnotate()))
-//     .pipe(gulpIf('*.js', uglify()))
-//     .pipe(gulpIf('*.css', cssnano()))
-//     .pipe(gulp.dest(drexlerConfig.dist));
-//
-//
-//
-//
-// });
+gulp.task('build', function() {
+  log('Packaging Drexler App');
+  sequence('clean', 'copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'replace', callback);
+
+  function callback(){
+    var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.build + '**/*.css']),
+        vendors =  mainBowerFiles();
+    return gulp.src(drexlerConfig.index.src)
+      .pipe(plug.inject(gulp.src(assets, {read: false}), {name: 'app'}))
+      .pipe(plug.inject(gulp.src(vendors, {read: false}), {name: 'vendors'}))
+      .pipe(plug.useref({
+        searchPath: ['.']
+      }))
+      .pipe(plug.if('js/app.min.js', plug.ngAnnotate({
+        add: true,
+        single_quotes: true
+      })))
+      .pipe(plug.if('js/*.js', plug.uglify({
+        mangle : true
+      })))
+      .pipe(plug.if('css/*.css', plug.csso()))
+      .pipe(plug.if('*.html',plug.htmlmin({
+        collapseWhitespace: true,
+        removeComments: true
+      })))
+      .pipe(gulp.dest(drexlerConfig.build));
+  }
+});
+
 
 /**
  * Copy content to www
@@ -421,13 +257,25 @@ gulp.task('images', function() {
     .pipe(gulp.dest(drexlerConfig.images.build));
 });
 
+
 /**
 * Clean development environment
 * @return {Stream}
 */
 gulp.task('clean', function() {
-  return del(['.tmp', 'www/**/*']);
+  return del(['.tmp/**/*', 'www/**/*']);
 });
+
+/**
+ * JsHint mode used during build time
+ */
+// gulp.task('lint', function() {
+//   return gulp.src(drexlerConfig.scripts.src)
+//     .pipe(jshint())
+//     .pipe(jshint.reporter('default'))
+//     .pipe(jshint.reporter('fail'));
+// });
+
 
 /**
  * Karma Test Environments
@@ -448,7 +296,45 @@ gulp.task('test', function(done) {
   });
 });
 
+// runs ionic serve
+gulp.task('replace', function() {
 
+  var stamps = drexlerConfig.stamps,
+    length = stamps.length;
+  for (var i = 0; i < length; i++) {
+    var item = stamps[i],
+      src = item.src,
+      patterns = item.patterns,
+      destLength = src.length;
+
+    if (Object.prototype.toString.call(src) === '[object Array]') {
+      var paternType = patterns.json ? {
+        json: patterns.json
+      } : {
+        match: patterns.match,
+        replacement: patterns.replacement
+      };
+      for (var e = 0; e < destLength; e++) {
+        gulp.src(src[e])
+          .pipe(plug.replaceTask({
+            patterns: [
+              paternType
+            ]
+          }))
+          .pipe(gulp.dest(item.dest));
+      }
+    } else {
+      gulp.src(src)
+        .pipe(plug.replaceTask({
+          patterns: [{
+            match: patterns.match,
+            replacement: patterns.replacement
+          }]
+        }))
+        .pipe(gulp.dest(item.dest));
+    }
+  }
+});
 
 //////
 // Some Ionic Helpers
@@ -512,44 +398,3 @@ function bytediffFormatter(data) {
 function formatPercent(num, precision) {
     return (num * 100).toFixed(precision);
 }
-
-
-// runs ionic serve
-gulp.task('replace', function() {
-
-  var stamps = drexlerConfig.stamps,
-    length = stamps.length;
-  for (var i = 0; i < length; i++) {
-    var item = stamps[i],
-      src = item.src,
-      patterns = item.patterns,
-      destLength = src.length;
-
-    if (Object.prototype.toString.call(src) === '[object Array]') {
-      var paternType = patterns.json ? {
-        json: patterns.json
-      } : {
-        match: patterns.match,
-        replacement: patterns.replacement
-      };
-      for (var e = 0; e < destLength; e++) {
-        gulp.src(src[e])
-          .pipe(replace({
-            patterns: [
-              paternType
-            ]
-          }))
-          .pipe(gulp.dest(item.dest));
-      }
-    } else {
-      gulp.src(src)
-        .pipe(replace({
-          patterns: [{
-            match: patterns.match,
-            replacement: patterns.replacement
-          }]
-        }))
-        .pipe(gulp.dest(item.dest));
-    }
-  }
-});

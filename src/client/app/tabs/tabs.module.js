@@ -1,10 +1,10 @@
 (function(){
-
+  'use strict';
   angular.module('drexler.tabs', [])
     .config(configuration)
     .run(run);
 
-
+  /* @ngInject */
   function configuration($stateProvider, $urlRouterProvider){
 
     // Ionic uses AngularUI Router which uses the concept of states
@@ -74,6 +74,7 @@
     $urlRouterProvider.otherwise('/tab/dash');
   }
 
+  /* @ngInject */
   function run($ionicPlatform, gettextCatalog, drexlerStorage, $cordovaGlobalization) {
 
     //This is just an example for agnular get text translation , in futre we will move this in a separate module :A
