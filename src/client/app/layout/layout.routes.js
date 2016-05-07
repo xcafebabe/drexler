@@ -30,8 +30,11 @@
           state : 'drexler.dashboard',
           config : {
             url : '/dashboard',
+            params : {
+              abc : 'cdefddddd'
+            },
             views : {
-              content : {
+              'content@' : {
                 templateUrl : 'app/layout/defaultContent.html'
               }
             }

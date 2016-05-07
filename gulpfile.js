@@ -73,17 +73,27 @@ gulp.task('default', ['help']);
  */
 gulp.task('serve', function() {
   addCordovaMocks();
-  if (args.templates){
+  console.log(args);
+  if (args.templates || args.template){
     gulp.start('templatecache');
-    watch(drexlerConfig.views.src, sequence('templatecache', browserSync.reload));
+    watch(drexlerConfig.views.src, function(){
+    sequence('templatecache', browserSync.reload);
+    });
   }else {
+    del('./.tmp/' + drexlerConfig.views.filename);
     watch(drexlerConfig.views.src, browserSync.reload);
   }
 
-  sequence('sass', 'inject', 'fonts', 'browserSync');
-  watch(drexlerConfig.scss.src, sequence('sass', browserSync.reload));
-  watch(drexlerConfig.scripts.src, sequence('inject', browserSync.reload));
-  watch(drexlerConfig.fonts.src, sequence('fonts', browserSync.reload));
+  sequence('sass', ['inject', 'fonts'], 'browserSync');
+  watch(drexlerConfig.scss.src, function(){
+    sequence('sass', browserSync.reload);
+  });
+  watch('./src/client/app/**/*.js', function(){
+    sequence('inject', browserSync.reload);
+  });
+  watch(drexlerConfig.fonts.src, function(){
+    sequence('fonts', browserSync.reload);
+  });
 });
 
 /**
@@ -215,7 +225,7 @@ gulp.task('ionic-build', function() {
  * @return {Stream}
  */
 gulp.task('templatecache', function() {
-  log('Creating an AngularJS $templateCache');
+  log('Creating templateCache');
   return gulp.src(drexlerConfig.views.src)
     // .pipe(plug.minifyHtml({
     //   empty: true

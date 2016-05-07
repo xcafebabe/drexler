@@ -50,7 +50,7 @@ module.exports = function(){
       'dest': ''
     },
     'dist': 'www',
-    'stamps': [ //Only has sense during build time
+    'stamps': [ //Only has sense during building time
       {
         'src': '.tmp/template.js', // support one string if there is only one file
         'dest': '', // empty string if want to replace current file

@@ -51,7 +51,8 @@
     "shelljs": "^0.3.0",
     "sinon": "^1.17.3",
     "watchify": "^3.7.0",
-    "yargs": "^4.4.0"
+    "yargs": "^4.4.0",
+    "gulp-watch": "^4.3.5"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",
@@ -67,8 +68,6 @@
   ],
   "dependencies": {
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "gulp-order": "^1.1.1",
-    "gulp-watch": "^4.3.5"
+    "grunt-cli": "^1.2.0"
   }
 }
