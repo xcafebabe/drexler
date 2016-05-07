@@ -1,14 +1,11 @@
 (function() {
   'use strict';
-  angular.module('drexler').run(run);
+  angular.module('drexler.core').run(run);
 
-  //TODO According to john papa all in run should be  encapsulated in init functions
-  // Refactor this please
-  // More info : https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y171
   /* @ngInject */
   function run($ionicPlatform, $cordovaGlobalization, drexlerStorage, gettextCatalog, $log, DRX_DEFAULT_LANGUAGE){
     var log = $log.getInstance('drexler');
-    // Coding with love :A
+
     $ionicPlatform.ready(function() {
       // Applying logic for Language from Localstorage > Language from Device > Default Language
       var languageSelected = drexlerStorage.get('language') || DRX_DEFAULT_LANGUAGE;
