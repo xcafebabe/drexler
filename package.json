@@ -3,9 +3,7 @@
   "version": "1.1.0",
   "description": "drexler: A seasoned ionic project",
   "authors": [
-    "Luis Toubes",
-    "Alexander Pleshcheev",
-    "Amin Ahmed"
+    "Luis Toubes"
   ],
   "license": "MIT",
   "homepage": "https://bitbucket.org/bytesauce/drexler",
@@ -70,6 +68,7 @@
   "dependencies": {
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
+    "gulp-order": "^1.1.1",
     "gulp-watch": "^4.3.5"
   }
 }

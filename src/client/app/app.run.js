@@ -2,6 +2,9 @@
   'use strict';
   angular.module('drexler').run(run);
 
+  //TODO According to john papa all in run should be  encapsulated in init functions
+  // Refactor this please
+  // More info : https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#style-y171
   /* @ngInject */
   function run($ionicPlatform, $cordovaGlobalization, drexlerStorage, gettextCatalog, $log, DRX_DEFAULT_LANGUAGE){
     var log = $log.getInstance('drexler');

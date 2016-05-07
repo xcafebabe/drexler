@@ -80,6 +80,11 @@ gulp.task('serve', function(){
 });
 
 /**
+* Alias for gulp serve
+*/
+gulp.task('server',['serve']);
+
+/**
 * Injects links to index html
 */
 gulp.task('inject', function () {

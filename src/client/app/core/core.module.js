@@ -6,7 +6,8 @@
     'angular-logger',
     'ngCordova',
     'gettext',
-    'ngStorage'
+    'ngStorage',
+    'ngMaterial'
 
   ]);
 })();

@@ -4,15 +4,16 @@
     [
       //Application Base Modules
       'drexler.core',
-      'drexler.common',
       'drexler.translation',
+      'drexler.layout',
 
       //ngCordova Mock for browser You can remove the below module when building your app
       // TODO How can inject this in gulp serve mode?
       /*'drexler.mockCordova',*/
 
       //Application Features Modules
-      'drexler.tabs',
-      'drexler.tabsMaterial'
+
+      //'drexler.tabs',
+      //'drexler.tabsMaterial'
     ]);
 })();

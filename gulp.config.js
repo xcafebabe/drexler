@@ -19,10 +19,11 @@ module.exports = function(){
       'src': [
         './.tmp/templates.js',
         './src/client/app/**/*.module.js',
+        './src/client/app/**/*.config.js',
+        './src/client/app/**/*.run.js',
         './src/mock-cordova/mock-cordava.module.js',
         './src/mock-cordova/mocks/*.js',
         './src/client/app/**/*.js'],
-      'buildsrc': ['./src/client/app/core/**/*.js', './.tmp/templates.js', './src/client/app/app.module.js', './src/client/app/app.config.js', './src/client/app/**/*.js'],
       'dest': ''
     },
     'scss': {
