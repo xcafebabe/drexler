@@ -17,10 +17,10 @@ module.exports = function(){
     },
     'scripts': {
       'src': [
-        './.tmp/templates.js',
         './src/client/app/**/*.module.js',
         './src/client/app/**/*.config.js',
         './src/client/app/**/*.run.js',
+        './.tmp/templates.js',
         './src/client/app/**/*.js'],
       'dest': ''
     },
