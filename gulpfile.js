@@ -134,10 +134,12 @@ gulp.task('sass', function() {
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: [drexlerConfig.path.temp],
+      baseDir: [
+        drexlerConfig.path.temp,
+        drexlerConfig.path.src + '/content'
+      ],
       routes: {
         '/vendors': './vendors',
-        '/content': './src/client/content',
         '/app': './src/client/app',
         '/.tmp': './.tmp'
       }
@@ -177,6 +179,24 @@ gulp.task('fonts', function() {
 });
 
 /**
+ * Create $templateCache from the html view templates
+ * @return {Stream}
+ */
+gulp.task('templatecache', function() {
+  log('Creating templateCache');
+  return gulp.src(drexlerConfig.views.src)
+    // .pipe(plug.minifyHtml({
+    //   empty: true
+    // }))
+    .pipe(templateCache(drexlerConfig.views.filename, {
+      module: 'drexler.core',
+      standalone: false,
+      root: 'app/'
+    }))
+    .pipe(gulp.dest(drexlerConfig.views.dest));
+});
+
+/**
  * Karma Test Environments
  */
 gulp.task('test', function(done) {
@@ -195,9 +215,17 @@ gulp.task('test', function(done) {
   });
 });
 
+gulp.task('copy-build', function() {
+  // the base option sets the relative root for the set of files,
+  // preserving the folder structure
+  gulp.src(['./src/client/content/**', '!./src/client/content/scss/**', '!./src/client/content/scss/',
+      '!./src/client/content/fonts/**', '!./src/client/content/fonts/'
+    ])
+    .pipe(gulp.dest('www/content/'));
+});
 
-//
-gulp.task('build', function() {
+
+gulp.task('inject-build', function() {
   var script = [].concat(drexlerConfig.scripts.buildsrc, drexlerConfig.views.dest + drexlerConfig.views.filename),
     vendor = mainBowerFiles(),
     paths = vendor.concat(script);
@@ -216,27 +244,11 @@ gulp.task('build', function() {
 });
 
 // app packaging into www. Ready to use by ionic cli.
-gulp.task('ionic-build', function() {
-  sequence('move-contents', 'images', 'sass', 'templatecache', 'replace', 'build');
+gulp.task('build', function() {
+
+  sequence('copy-build', 'images', 'sass', 'templatecache', 'replace', 'inject-build');
 });
 
-/**
- * Create $templateCache from the html view templates
- * @return {Stream}
- */
-gulp.task('templatecache', function() {
-  log('Creating templateCache');
-  return gulp.src(drexlerConfig.views.src)
-    // .pipe(plug.minifyHtml({
-    //   empty: true
-    // }))
-    .pipe(templateCache(drexlerConfig.views.filename, {
-      module: 'drexler.core',
-      standalone: false,
-      root: 'app/'
-    }))
-    .pipe(gulp.dest(drexlerConfig.views.dest));
-});
 
 
 // runs ionic serve
@@ -317,21 +329,4 @@ gulp.task('replace', function() {
         .pipe(gulp.dest(item.dest));
     }
   }
-});
-
-
-gulp.task('move-contents', function() {
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src(['./src/client/content/**', '!./src/client/content/scss/**', '!./src/client/content/scss/',
-      '!./src/client/content/fonts/**', '!./src/client/content/fonts/'
-    ])
-    .pipe(gulp.dest('www/content/'));
-});
-
-gulp.task('move-fonts', function() {
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src(['./src/client/content/fonts/**/*'])
-    .pipe(gulp.dest('www/fonts/'));
 });
