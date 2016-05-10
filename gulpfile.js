@@ -205,17 +205,13 @@ gulp.task('pot', function() {
     .pipe(gulp.dest(drexlerConfig.locale.build));
 });
 
-gulp.task('translations', function() {
+gulp.task('po-compile', function() {
   return gulp.src(drexlerConfig.locale.src)
-    .pipe(plug.angularGettext.compile({
-      options: {
-        module: drexlerConfig.locale.module
-      },
-      files: {
-        'src/js/translations.js': ['po/*.po']
-      }
-    }));
-    //.pipe(gulp.dest('dist/translations/'));
+    .pipe(plug.angularGettext.compile('translation.run.js',{
+      module: drexlerConfig.locale.module,
+      format: 'javascript'
+    }))
+    .pipe(gulp.dest('./src/client/app/translation'));
 });
 
 /**
