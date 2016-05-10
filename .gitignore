@@ -10,3 +10,7 @@ plugins/
 .idea/
 gulp.custom.js
 www/*
+
+# Angular Gettext
+po/*.mo
+po/template.pot

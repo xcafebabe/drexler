@@ -196,6 +196,28 @@ gulp.task('ngTemplateCache', function() {
     .pipe(gulp.dest(drexlerConfig.views.build));
 });
 
+gulp.task('pot', function() {
+  return gulp.src([].concat(drexlerConfig.views.src, [drexlerConfig.path.src + '/app/**/*.js']))
+    .pipe(plug.angularGettext.extract(drexlerConfig.locale.template, {
+      // options to pass to angular-gettext-tools...
+
+    }))
+    .pipe(gulp.dest(drexlerConfig.locale.build));
+});
+
+gulp.task('translations', function() {
+  return gulp.src(drexlerConfig.locale.src)
+    .pipe(plug.angularGettext.compile({
+      options: {
+        module: drexlerConfig.locale.module
+      },
+      files: {
+        'src/js/translations.js': ['po/*.po']
+      }
+    }));
+    //.pipe(gulp.dest('dist/translations/'));
+});
+
 /**
 * Bundling, uglifying, minifying Css, Html, Javascript.
 */

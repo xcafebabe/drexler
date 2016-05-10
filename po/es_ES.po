@@ -5,21 +5,21 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 1.8.7\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es\n"
+"Language: es_ES\n"
 
-#: src/client/app/tabs/language/tab-lang.html:20
-msgid "Hello World"
-msgstr "Hola Mundo"
-
-#: src/client/app/tabs/language/tab-lang.html:21
+#: tabs/language/tab-lang.html:21
 msgid "HI"
-msgstr "﻿Hola."
+msgstr "HOLA"
 
-#: src/client/app/tabs/language/tab-lang.html:22
+#: tabs/language/tab-lang.html:20
+msgid "Hello World"
+msgstr "Hola Mundo\t"
+
+#: tabs/language/tab-lang.html:22
 msgid "Test"
 msgstr "Prueba"

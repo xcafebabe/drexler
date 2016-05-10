@@ -31,6 +31,12 @@ module.exports = function(){
         './vendors/**/*.css'
       ]
     },
+    'locale': {
+      'module' : 'drexler.translation',
+      'template' : 'template.pot',
+      'src' : ['po/**/*.po'],
+      'build' : './po'
+    },
     'scss': {
       'src': ['./src/client/content/scss/**/*.scss'],
       'build': './.tmp/css/'
