@@ -1,11 +1,10 @@
 (function(){
   'use strict';
-  angular.module('drexler.core')
-    .service('drexlerStorage',drexlerStorage);
+  angular.module('drexler.blocks.storage')
+    .service('drexlerStorage',DrexlerStorage);
 
-  drexlerStorage.$inject = ['$localStorage']; // Currenlty doing Manual DI for function , later we will be using ngInject
-  function drexlerStorage($localStorage){
-
+  /* @ngInject */
+  function DrexlerStorage($localStorage){
     // Set local Variable
     this.set = function (key,value) {
       $localStorage[key] = value;
@@ -20,10 +19,10 @@
       $localStorage.$reset();
     };
 
-    this.reset = function (key) {
+    this.reset = function () {
       $localStorage.$reset({
         key: null
       });
-    }
+    };
   }
 })();
