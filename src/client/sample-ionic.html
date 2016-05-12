@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-  <!--build:css css/styles.min.css-->
-  <!-- inject:css -->
+    <!-- build:css css/vendors.min.css-->
+    <!-- vendors:css -->
+    <!-- endinject -->
+    <!-- endbuild-->
 
-  <!-- endinject -->
-  <!--endbuild-->
+    <!-- build:css css/app.min.css-->
+    <!-- app:css -->
+    <!-- endinject -->
+    <!-- endbuild-->
 </head>
 <body  ng-app="drexler">
 
@@ -25,11 +29,15 @@
   -->
   <ion-nav-view></ion-nav-view>
 
-
   <script src="cordova.js"></script>
-  <!--build:js js/main.min.js -->
-  <!-- inject:js -->
 
+  <!-- build:js js/vendors.min.js -->
+  <!-- vendors:js -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:js js/app.min.js -->
+  <!-- app:js -->
   <!-- endinject -->
   <!-- endbuild -->
 

@@ -25,6 +25,7 @@
               gettextCatalog.setCurrentLanguage(DRX_DEFAULT_LANGUAGE);
             });
         }else {
+          log.debug("Default language %s selected", DRX_DEFAULT_LANGUAGE);
           gettextCatalog.setCurrentLanguage(DRX_DEFAULT_LANGUAGE);
         }
       }

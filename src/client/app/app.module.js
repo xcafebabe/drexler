@@ -12,8 +12,5 @@
       /*'drexler.mockCordova',*/
 
       //Application Features Modules
-
-      //'drexler.tabs',
-      //'drexler.tabsMaterial'
     ]);
 })();

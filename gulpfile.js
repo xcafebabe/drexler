@@ -196,6 +196,10 @@ gulp.task('ngTemplateCache', function() {
     .pipe(gulp.dest(drexlerConfig.views.build));
 });
 
+/**
+ * Create a POT file to be used during translation phase
+ * @return {Stream}
+ */
 gulp.task('pot', function() {
   return gulp.src([].concat(drexlerConfig.views.src, [drexlerConfig.path.src + '/app/**/*.js']))
     .pipe(plug.angularGettext.extract(drexlerConfig.locale.template, {
@@ -205,13 +209,17 @@ gulp.task('pot', function() {
     .pipe(gulp.dest(drexlerConfig.locale.build));
 });
 
+/**
+* Converting translated .po files into angular-compatible JavaScript file
+* @return {Stream}
+*/
 gulp.task('po-compile', function() {
   return gulp.src(drexlerConfig.locale.src)
-    .pipe(plug.angularGettext.compile('translation.run.js',{
+    .pipe(plug.angularGettext.compile(drexlerConfig.locale.buildFile,{
       module: drexlerConfig.locale.module,
       format: 'javascript'
     }))
-    .pipe(gulp.dest('./src/client/app/translation'));
+    .pipe(gulp.dest(drexlerConfig.locale.buildFolder));
 });
 
 /**
@@ -220,7 +228,7 @@ gulp.task('po-compile', function() {
 // Build into www. Ready to use by ionic cli.
 gulp.task('build', function() {
   log('Packaging Drexler App');
-  sequence('clean', 'copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'replace', callback);
+  sequence('clean', 'copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile', 'replace', callback);
 
   function callback(){
     var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.build + '**/*.css']),

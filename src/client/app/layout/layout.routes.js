@@ -1,42 +1,32 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular.module('drexler.layout').run(coreRun);
+  angular.module('drexler.layout').config(layoutState);
 
-    /* @ngInject */
-    function coreRun(routerHelper) {
-      routerHelper.configureStates(getStates(),'/dashboard');
-    }
+  /* @ngInject */
+  function layoutState(DRX_DEFAULT_URL, $stateProvider, $urlRouterProvider) {
 
-    ///////////
+    $urlRouterProvider.otherwise(DRX_DEFAULT_URL);
 
-    function getStates(){
-      return [
-        {
-          state: 'drexler',
-          config : {
-            abstract: true,
-            views :  {
-              header : {
-                templateUrl : 'app/layout/header.html'
-              },
-              sidebar : {
-                templateUrl : 'app/layout/sidebar.html'
-              }
-            }
-          }
-        },
-        {
-          state : 'drexler.dashboard',
-          config : {
-            url : '/dashboard',
-            views : {
-              'content@' : {
-                templateUrl : 'app/layout/defaultContent.html'
-              }
-            }
+    $stateProvider
+      .state('drexler', {
+        abstract: true,
+        views: {
+          header: {
+            templateUrl: 'app/layout/header.html'
+          },
+          sidebar: {
+            templateUrl: 'app/layout/sidebar.html'
           }
         }
-      ];
-    }
+      })
+      .state('drexler.default', {
+        url: DRX_DEFAULT_URL,
+        views: {
+          'content@': {
+            templateUrl: 'app/layout/defaultContent.html'
+          }
+        }
+      });
+  }
 })();

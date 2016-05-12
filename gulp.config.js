@@ -8,7 +8,7 @@ module.exports = function(){
       'dest': 'src/client/'
     },
     'index': {
-      'src': ['./src/client/index*.html'],
+      'src': ['./src/client/index*.html', './src/client/sample-ionic.html'],
     },
     'views': {
       'src': ['./src/client/app/**/*.html'],
@@ -18,8 +18,6 @@ module.exports = function(){
     'scripts': {
       'src': [
         './src/client/app/**/*.module.js',
-        './src/client/app/**/*.config.js',
-        './src/client/app/**/*.run.js',
         './.tmp/templates.js',
         './src/client/app/**/*.js'],
     },
@@ -35,7 +33,9 @@ module.exports = function(){
       'module' : 'drexler.translation',
       'template' : 'template.pot',
       'src' : ['po/**/*.po'],
-      'build' : './po'
+      'build' : './po',
+      'buildFile' : 'translation.run.js',
+      'buildFolder' : './src/client/app/translation'
     },
     'scss': {
       'src': ['./src/client/content/scss/**/*.scss'],
