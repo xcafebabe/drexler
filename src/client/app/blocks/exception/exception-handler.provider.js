@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-    .module('blocks.exception')
+    .module('drexler.blocks.exception')
     .provider('exceptionHandler', exceptionHandlerProvider)
     .config(config);
 

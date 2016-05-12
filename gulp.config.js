@@ -59,9 +59,9 @@ module.exports = function(){
     },
     'test': {
       'src': ['/karma.conf.js'],
-      'frameworks': ['mocha', 'chai'],
+      'frameworks': ['mocha', 'chai', 'sinon', 'chai-sinon' ],
       'preprocessors': {
-        'src/client/test/*.js': [ 'browserify' ]
+          'src/client/app/**/*.js': 'coverage'
       },
       'scripts': ['./src/client/test/**/*.js'],
       'exclude': ['**/*.+(eot|svg|ttf|woff)'],

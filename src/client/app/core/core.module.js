@@ -4,10 +4,10 @@
     /* Angular Modules*/
 
     /* Cross App Modules*/
-    'drexler.blocks.logger',
-    'drexler.blocks.exception',
+    // 'drexler.blocks.logger',
+    // 'drexler.blocks.exception',
     'drexler.blocks.storage',
-    'drexler.blocks.locale',
+    // 'drexler.blocks.locale',
 
     /* 3rd Party modules */
     'ionic',
@@ -16,7 +16,9 @@
     //This is intended for browser development purposes
     'ngCordovaMocks',
     'ngMaterial',
-    'gettext'
+    'gettext',
+
+    'angular-logger',
 
   ]);
 })();

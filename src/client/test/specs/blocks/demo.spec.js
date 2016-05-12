@@ -1,22 +1,17 @@
-var ex = require('chai').expect;
-describe("An AngularJS test suite", function(){
+describe('An AngularJS test suite', function(){
 
   var sum = function(obj){
     obj();
   };
 
-  it("Jasmine", function(){
-    expect(true).toBe(true);
-  })
-
   it('mocha chai', function(){
     assert.equal(true, true);
-  })
+  });
 
   it('mocha chai should', function(){
     var test = 'var';
     test.should.be.a('string');
-  })
+  });
 
   it('sinon', function(){
 
@@ -31,13 +26,11 @@ describe("An AngularJS test suite", function(){
     //spy.returned(obj);
     //spy.calledBefore(spy);
     //spy.calledAfter(spy);
-  })
+  });
 
   it('mocha chai expect', function(){
+    expect('foo').to.equal('foo');
+  });
 
-    ex('foo').to.equal('foo');
-  })
 
-
-})
-
+});

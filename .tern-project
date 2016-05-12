@@ -6,6 +6,20 @@
   ],
   "loadEagerly": [
     "src/client/app/**/*.js",
-    "src/client/test/**/*.js"
-  ]
+    "src/client/test/**/*.js",
+    "node_modules/chai/lib/**/*.js",
+    "node_modules/chai-as-promised/lib/**/*.js",
+    "node_modules/mocha/lib/**/*.js"
+  ],
+  "plugins": {
+    "complete_strings": {},
+    "node": {},
+    "lint": {},
+    "angular": {},
+    "modules": {},
+    "es_modules": {},
+    "doc_comment": {
+      "fullDocs": true
+    }
+  }
 }
