@@ -11,7 +11,7 @@ var plug = require('gulp-load-plugins')({lazy: true}),
   _ = require('lodash'),
   mainBowerFiles = require('main-bower-files'),
   exec = require('child_process').exec,
-  merge = require('merge-stream'),
+  merge = require('merge2'),
   drexlerConfig;
 
 /**
@@ -122,7 +122,7 @@ gulp.task('server', ['serve']);
  */
 gulp.task('sass', function() {
   return gulp.src(drexlerConfig.scss.src)
-    .pipe(plug.sass().on('error', plug.sass.logError)) // Converts Sass to CSS with gulp-sass
+    .pipe(plug.sass().on('error', plug.sass.logError)).on('error',function(){process.exit();}) // Converts Sass to CSS with gulp-sass
     .pipe(plug.autoprefixer('last 2 version', '> 5%'))
     .pipe(gulp.dest(drexlerConfig.scss.build));
 });
@@ -225,33 +225,35 @@ gulp.task('po-compile', function() {
 
 /**
 * Bundling, uglifying, minifying Css, Html, Javascript.
+* Build into www. Ready to use by ionic cli.
 */
-// Build into www. Ready to use by ionic cli.
+
 gulp.task('build', function() {
   log('Packaging Drexler App');
-  sequence('clean', 'copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile', 'replace', callback);
+  sequence('clean', ['copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile'], 'replace', bigPipeCallback);
 
-  function callback(){
+  function bigPipeCallback(){
     var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.build + '**/*.css']),
         vendors =  mainBowerFiles();
     return gulp.src(drexlerConfig.index.src)
       .pipe(plug.inject(gulp.src(assets, {read: false}), {name: 'app'}))
       .pipe(plug.inject(gulp.src(vendors, {read: false}), {name: 'vendors'}))
+      .pipe(gulp.dest(drexlerConfig.build))
       .pipe(plug.useref({
-        searchPath: ['.']
+        searchPath : drexlerConfig.rootPath
       }))
+      .pipe(plug.plumber({errorHandler: plug.notify.onError("Error: <%= error.message %>")}))
       .pipe(plug.if('js/app.min.js', plug.ngAnnotate({
-        add: true,
-        single_quotes: true
-      })))
-      .pipe(plug.if('js/*.js', plug.uglify({
-        mangle : true
-      })))
+         add: true,
+         single_quotes: true
+       })))
+      .pipe(plug.if('js/*.js', plug.uglify()))
       .pipe(plug.if('css/*.css', plug.csso()))
       .pipe(plug.if('*.html',plug.htmlmin({
-        collapseWhitespace: true,
-        removeComments: true
-      })))
+         collapseWhitespace: true,
+         removeComments: true
+       })))
+       .pipe(plug.print())
       .pipe(gulp.dest(drexlerConfig.build));
   }
 });

@@ -12,7 +12,7 @@ module.exports = function(){
       'dest': 'src/client/'
     },
     'index': {
-      'src': ['./src/client/index*.html', './src/client/sample-ionic.html'],
+      'src': ['./src/client/index*.html'],
     },
     'views': {
       'src': ['./src/client/app/**/*.html'],

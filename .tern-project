@@ -5,6 +5,8 @@
     "jquery"
   ],
   "loadEagerly": [
+    "./gulp.config.js",
+    "./gulpfile.js",
     "src/client/app/**/*.js",
     "src/client/test/**/*.js",
     "node_modules/chai/lib/**/*.js",
