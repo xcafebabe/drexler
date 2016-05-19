@@ -1,7 +1,9 @@
 module.exports = function(){
   'use strict';
   var config = {
-    'isBuild' : false,
+    'packageFile' : './package.json',
+    'bowerFile' :  './bower.json',
+    'rootPath' : './',
     'path': {
       'src': './src/client',
       'temp': './.tmp/',
@@ -68,13 +70,12 @@ module.exports = function(){
     },
     'build': 'www',
     'stamps': [ //Only has sense during building time
+      //More info https://www.npmjs.com/package/gulp-replace
       {
-        'src': '.tmp/template.js', // support one string if there is only one file
-        'dest': '', // empty string if want to replace current file
-        'patterns': {
-          'match': /VERSION_NUMBER/g,
-          'replacement': '1.1.0'
-        }
+        'src': './.tmp/templates.js', // support one string if there is only one file
+        'dest': './.tmp/', // if not dest we use src as destination
+        'match' : 'VERSION_NUMBER', //Could be string or regex
+        'replacement' : '1.1.0' //Could be string or function
       },
     ]
   };

@@ -1,5 +1,5 @@
 'use strict';
-var plug = require('gulp-load-plugins')(),
+var plug = require('gulp-load-plugins')({lazy: true}),
   args = require('yargs').argv,
   browser = require('browser-sync'),
   gulp = require('gulp'),
@@ -11,6 +11,7 @@ var plug = require('gulp-load-plugins')(),
   _ = require('lodash'),
   mainBowerFiles = require('main-bower-files'),
   exec = require('child_process').exec,
+  merge = require('merge-stream'),
   drexlerConfig;
 
 /**
@@ -322,44 +323,59 @@ gulp.task('test', function(done) {
   });
 });
 
-// runs ionic serve
+/**
+* Replace Task
+* @return {Stream}
+*/
 gulp.task('replace', function() {
-
+  log('Started replace task');
   var stamps = drexlerConfig.stamps,
-    length = stamps.length;
+    length = stamps.length,
+    merged = merge(),
+    stream;
+
   for (var i = 0; i < length; i++) {
     var item = stamps[i],
-      src = item.src,
-      patterns = item.patterns,
-      destLength = src.length;
+    dest = item.dest || item.src;
+    log('Replacing ' + item.match + ' with ' +  item.replacement);
+    log('in ' + item.src);
 
-    if (Object.prototype.toString.call(src) === '[object Array]') {
-      var paternType = patterns.json ? {
-        json: patterns.json
-      } : {
-        match: patterns.match,
-        replacement: patterns.replacement
-      };
-      for (var e = 0; e < destLength; e++) {
-        gulp.src(src[e])
-          .pipe(plug.replaceTask({
-            patterns: [
-              paternType
-            ]
-          }))
-          .pipe(gulp.dest(item.dest));
-      }
-    } else {
-      gulp.src(src)
-        .pipe(plug.replaceTask({
-          patterns: [{
-            match: patterns.match,
-            replacement: patterns.replacement
-          }]
-        }))
-        .pipe(gulp.dest(item.dest));
-    }
+    stream = gulp.src(item.src)
+      .pipe(plug.replace(item.match, item.replacement))
+      .pipe(gulp.dest(dest));
+
+    merged.add(stream);
   }
+
+  return merged;
+});
+
+/**
+ * Update the version. By default is applied a patch
+ * --type=pre will bump the prerelease version *.*.*-x
+ * --type=patch or no flag will bump the patch version *.*.x
+ * --type=minor will bump the minor version *.x.*
+ * --type=major will bump the major version x.*.*
+ * --version=1.2.3 will bump to a specific version and ignore other flags
+ */
+gulp.task('version', function() {
+  var msg = 'Updating versions';
+  var type = args.type || 'patch';
+  var version = args.ver;
+  var options = {};
+  if (version) {
+    options.version = version;
+    msg += ' to ' + version;
+  } else {
+    options.type = type;
+    msg += ' for a ' + type;
+  }
+  log(msg);
+  return gulp
+    .src([].concat(drexlerConfig.packageFile, drexlerConfig.bowerFile))
+    .pipe(plug.print())
+    .pipe(plug.bump(options))
+    .pipe(gulp.dest(drexlerConfig.rootPath));
 });
 
 //////
