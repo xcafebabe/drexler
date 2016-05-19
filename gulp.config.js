@@ -3,6 +3,8 @@ module.exports = function(){
   var config = {
     'packageFile' : './package.json',
     'bowerFile' :  './bower.json',
+    'jshintFile' : './.jshintrc',
+    'jscsFile' : './.jscsrc',
     'rootPath' : './',
     'path': {
       'src': './src/client',

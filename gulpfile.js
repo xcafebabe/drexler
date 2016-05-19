@@ -351,6 +351,19 @@ gulp.task('replace', function() {
 });
 
 /**
+* Helpful task to fast review my code with JSHint and JSCS
+*/
+gulp.task('review', function(){
+    log('Analyzing sources with JSHint and JSCS');
+
+    var jshint = analyzejshint(drexlerConfig.scripts.src);
+    var jscs = analyzejscs(drexlerConfig.scripts.src);
+
+    return merge(jshint, jscs);
+});
+
+
+/**
  * Update the version. By default is applied a patch
  * --type=pre will bump the prerelease version *.*.*-x
  * --type=patch or no flag will bump the patch version *.*.x
@@ -439,4 +452,36 @@ function bytediffFormatter(data) {
  */
 function formatPercent(num, precision) {
     return (num * 100).toFixed(precision);
+}
+
+
+/**
+ * Execute JSHint on given source files
+ * @param  {Array} sources
+ * @return {Stream}
+ */
+function analyzejshint(sources) {
+  var jshintrcFile = drexlerConfig.jshintFile || './.jshintrc';
+  log('Running JSHint');
+  log(sources);
+  return gulp
+    .src(sources)
+    .pipe(plug.if(args.verbose, plug.print()))
+    .pipe(plug.jshint(jshintrcFile))
+    .pipe(plug.jshint.reporter('jshint-stylish', {verbose : true}))
+    .pipe(plug.jshint.reporter('fail'));
+}
+
+/**
+ * Execute JSCS on given source files
+ * @param  {Array} sources
+ * @return {Stream}
+ */
+function analyzejscs(sources) {
+  var jscsrcFile = drexlerConfig.jscsFile || './.jscsrc';
+  log('Running JSCS');
+  return gulp
+    .src(sources)
+    .pipe(plug.if(args.verbose, plug.print()))
+    .pipe(plug.jscs(jscsrcFile));
 }
