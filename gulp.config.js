@@ -70,7 +70,7 @@ module.exports = function(){
       'scripts': ['./src/client/test/**/*.js'],
       'exclude': ['**/*.+(eot|svg|ttf|woff)'],
     },
-    'build': 'www',
+    'build': 'www/',
     'stamps': [ //Only has sense during building time
       //More info https://www.npmjs.com/package/gulp-replace
       {

@@ -228,13 +228,45 @@ gulp.task('po-compile', function() {
 * Build into www. Ready to use by ionic cli.
 */
 
-gulp.task('build', function() {
+gulp.task('build', function(done){
   log('Packaging Drexler App');
-  sequence('clean', ['copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile'], 'replace', bigPipeCallback);
+  sequence('clean',
+    ['copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile'],
+    'replace',
+    'build-optimize',
+    'build-revision',
+    'build-revreplace',
+    done);
+});
 
-  function bigPipeCallback(){
+gulp.task('build-revision', function(){
+  log('Creating revision');
+
+  return gulp.src([
+    drexlerConfig.build + '**/*.+(css|js)'
+  ])
+  .pipe(plug.rev())
+  .pipe(plug.print())
+  .pipe(plug.revDeleteOriginal())
+  .pipe(gulp.dest(drexlerConfig.build))
+  .pipe(plug.rev.manifest())
+  .pipe(gulp.dest(drexlerConfig.build));
+});
+
+gulp.task('build-revreplace', function(){
+  var manifest = gulp.src(drexlerConfig.build + "rev-manifest.json");
+
+  return gulp.src(drexlerConfig.build + '*.html')
+    .pipe(plug.print())
+    .pipe(plug.revReplace({manifest: manifest}))
+    .pipe(gulp.dest(drexlerConfig.build));
+});
+
+gulp.task('build-optimize', function() {
+  log('Optimizing Drexler App');
     var assets = [].concat(drexlerConfig.scripts.src, [drexlerConfig.scss.build + '**/*.css']),
         vendors =  mainBowerFiles();
+
     return gulp.src(drexlerConfig.index.src)
       .pipe(plug.inject(gulp.src(assets, {read: false}), {name: 'app'}))
       .pipe(plug.inject(gulp.src(vendors, {read: false}), {name: 'vendors'}))
@@ -242,7 +274,11 @@ gulp.task('build', function() {
       .pipe(plug.useref({
         searchPath : drexlerConfig.rootPath
       }))
+
+
+
       .pipe(plug.plumber({errorHandler: plug.notify.onError("Error: <%= error.message %>")}))
+      .pipe(plug.print())
       .pipe(plug.if('js/app.min.js', plug.ngAnnotate({
          add: true,
          single_quotes: true
@@ -253,9 +289,8 @@ gulp.task('build', function() {
          collapseWhitespace: true,
          removeComments: true
        })))
-       .pipe(plug.print())
-      .pipe(gulp.dest(drexlerConfig.build));
-  }
+
+      .pipe(gulp.dest(drexlerConfig.build)); // write the index.html file changes
 });
 
 
