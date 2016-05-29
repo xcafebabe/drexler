@@ -67,7 +67,12 @@ module.exports = function(){
       'preprocessors': {
           'src/client/app/**/*.js': 'coverage'
       },
-      'scripts': ['./src/client/test/**/*.js'],
+      'specsFolder' : './src/client/test/specs/',
+      'mocks' : [
+        './vendors/angular-mocks/angular-mocks.js',
+        './src/client/test/lib/**/*.js'
+      ],
+      'scripts': ['./src/client/test/specs/**/*.js'],
       'exclude': ['**/*.+(eot|svg|ttf|woff)'],
     },
     'build': 'www/',

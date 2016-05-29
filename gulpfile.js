@@ -231,7 +231,7 @@ gulp.task('po-compile', function() {
 gulp.task('build', function(done){
   log('Packaging Drexler App');
   sequence('clean',
-    ['copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'pot', 'po-compile'],
+    ['copy', 'fonts-build', 'images', 'sass', 'ngTemplateCache', 'po-compile'],
     'replace',
     'build-optimize',
     'build-revision',
@@ -274,9 +274,6 @@ gulp.task('build-optimize', function() {
       .pipe(plug.useref({
         searchPath : drexlerConfig.rootPath
       }))
-
-
-
       .pipe(plug.plumber({errorHandler: plug.notify.onError("Error: <%= error.message %>")}))
       .pipe(plug.print())
       .pipe(plug.if('js/app.min.js', plug.ngAnnotate({
@@ -345,10 +342,12 @@ gulp.task('clean', function() {
  * Karma Test Environments
  */
 gulp.task('test', function(done) {
-  var test = drexlerConfig.test.scripts,
+  var test = args.files ? drexlerConfig.test.specsFolder + args.files : drexlerConfig.test.scripts,
     local = drexlerConfig.scripts.src.concat(test),
     vendor = mainBowerFiles(),
-    paths = vendor.concat(local);
+    mocks = drexlerConfig.test.mocks,
+    paths = vendor.concat(mocks,local);
+    log(paths);
   karma.start({
     configFile: __dirname + drexlerConfig.test.src,
     files: paths,

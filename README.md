@@ -58,10 +58,6 @@ cd drexler && ionic state reset && npm install && bower install
 
 ## Usage
 
-Copy file `gulp.config-sample.js` to `gulp.config.js` .
-
-In this file you can save/read sensitive information about Drexler configuration.
-
 After this copy you can run  Drexler in development mode
 
 ```
@@ -77,8 +73,6 @@ To execute all unit tests, use:
 ```
 gulp test
 ```
-
-
 
 ### BUILD DISTRIBUTION
 

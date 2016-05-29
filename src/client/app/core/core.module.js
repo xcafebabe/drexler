@@ -17,8 +17,6 @@
     'ngCordovaMocks',
     'ngMaterial',
     'gettext',
-
-    'angular-logger',
-
+    'angular-logger'
   ]);
 })();
