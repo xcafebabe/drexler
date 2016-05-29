@@ -1,0 +1,16 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+node_modules/
+vendors/
+platforms/
+plugins/
+.idea/
+.tmp/
+.idea/
+gulp.custom.js
+www/*
+
+# Angular Gettext
+po/*.mo
+po/template.pot

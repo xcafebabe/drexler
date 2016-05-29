@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Drexler - Starter App</title>
+
+  <meta charset="utf-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Drexler Boilerplate Awesomeness">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <!-- build:css css/vendors.min.css-->
+  <!-- vendors:css -->
+  <!-- endinject -->
+  <!-- endbuild-->
+
+  <!-- build:css css/app.min.css-->
+  <!-- app:css -->
+  <!-- endinject -->
+  <!-- endbuild-->
+</head>
+
+<body ng-app="drexler" layout="column" ng-cloak>
+  <!-- Start Header -->
+  <header ui-view="header"></header>
+  <!-- End Header -->
+
+  <div flex layout="row">
+    <!-- Start Sidebar -->
+    <nav ui-view="sidebar"></nav>
+    <!-- End Sidebar -->
+
+    <!-- Start Dynamic Content -->
+    <section ui-view="content"></section>
+    <!-- End Dynamic Content -->
+  </div>
+
+  <!-- build:js js/vendors.min.js -->
+  <!-- vendors:js -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:js js/app.min.js -->
+  <!-- app:js -->
+  <!-- endinject -->
+  <!-- endbuild -->
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Drexler v1.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: tabs-material/tabs/tabs.html:14
+msgid "About app"
+msgstr "Über app"
+
+#: tabs/language/tab-lang.html:21
+msgid "HI"
+msgstr "HALLO"
+
+#: tabs/language/tab-lang.html:20
+msgid "Hello World"
+msgstr "Hallo Welt"
+
+#: tabs-material/tabs/tabs.html:8
+msgid "Settings"
+msgstr "Konfiguration"
+
+#: tabs-material/tabs/tabs.html:11
+msgid "Share app"
+msgstr "Share app"
+
+#: tabs/language/tab-lang.html:22
+msgid "Test"
+msgstr "Test"
